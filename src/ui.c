@@ -2,13 +2,18 @@
 
 #include "indexer.h"
 
+#include <errno.h>
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
 #ifndef PACKAGE_VERSION
-#define PACKAGE_VERSION "0.3.0-beta3"
+#define PACKAGE_VERSION "0.5.0-beta5"
 #endif
+
+#define DEFAULT_DETAIL_FONT "Sans 11"
+#define DEFAULT_SOURCE_FONT "Monospace 11"
 
 typedef struct {
     gint start_offset;
@@ -21,6 +26,16 @@ typedef struct {
     gint ref_count;
     gint shutting_down;
     GtkWidget *window;
+    GtkWidget *menu_bar;
+    GtkWidget *file_menu_item;
+    GtkWidget *actions_menu_item;
+    GtkWidget *help_menu_item;
+    GtkWidget *index_item;
+    GtkWidget *build_item;
+    GtkWidget *stop_item;
+    GtkWidget *settings_item;
+    GtkWidget *input_row;
+    GtkWidget *content_pane;
     GtkWidget *path_entry;
     GtkWidget *search_entry;
     GtkWidget *sort_combo;
@@ -33,6 +48,8 @@ typedef struct {
     GtkTreeStore *tree_store;
     GtkWidget *detail_view;
     GtkWidget *source_view;
+    GtkCssProvider *detail_font_provider;
+    GtkCssProvider *source_font_provider;
     GtkTextTag *link_tag;
     GtkTextTag *header_tag;
     GtkTextTag *section_tag;
@@ -58,6 +75,8 @@ typedef struct {
     GThread *index_thread;
     guint tree_build_source_id;
     guint source_thread_count;
+    gchar *detail_font;
+    gchar *source_font;
     gboolean indexing;
     OdysiaIndex *index;
 } AppState;
@@ -88,6 +107,18 @@ typedef struct {
     gchar *error_message;
     gchar *root_path;
 } IndexResult;
+
+typedef struct {
+    AppState *state;
+    gchar *filename;
+} LoadJob;
+
+typedef struct {
+    AppState *state;
+    OdysiaIndex *index;
+    gchar *error_message;
+    gchar *filename;
+} LoadResult;
 
 #define TREE_CATEGORY_COUNT 15
 
@@ -121,11 +152,13 @@ typedef struct {
     GHashTable *language_iters;
     GHashTable *category_iters;
     GHashTable *letter_iters;
+    GHashTable *documented_names;
     GtkTreeIter current_parent_iter;
 } TreeBuildTask;
 
 enum {
     COLUMN_ICON_NAME,
+    COLUMN_DOCUMENTATION_ICON,
     COLUMN_TITLE,
     COLUMN_KIND,
     COLUMN_LOCATION,
@@ -149,6 +182,267 @@ static void buffer_append_plain(GtkTextBuffer *buffer, const gchar *text);
 static gchar *symbol_location_text(const OdysiaSymbol *symbol);
 static gchar *symbol_tree_title(const OdysiaSymbol *symbol);
 static void apply_source_highlighting(AppState *state, GtkTextBuffer *buffer, const gchar *text);
+
+static gchar *settings_file_path(void)
+{
+    return g_build_filename(g_get_user_config_dir(), "odysia", "settings.ini", NULL);
+}
+
+static void load_settings(AppState *state)
+{
+    GKeyFile *key_file;
+    gchar *path;
+    GError *error;
+    gint thread_count;
+
+    state->source_thread_count = MAX(1, g_get_num_processors());
+    state->detail_font = g_strdup(DEFAULT_DETAIL_FONT);
+    state->source_font = g_strdup(DEFAULT_SOURCE_FONT);
+    key_file = g_key_file_new();
+    path = settings_file_path();
+    error = NULL;
+    if (!g_key_file_load_from_file(key_file, path, G_KEY_FILE_NONE, &error)) {
+        g_clear_error(&error);
+        g_free(path);
+        g_key_file_unref(key_file);
+        return;
+    }
+
+    thread_count = g_key_file_get_integer(key_file, "Parser", "Threads", NULL);
+    if (thread_count > 0) {
+        state->source_thread_count = (guint) MIN(thread_count, 1024);
+    }
+    if (g_key_file_has_key(key_file, "Fonts", "Detail", NULL)) {
+        g_free(state->detail_font);
+        state->detail_font = g_key_file_get_string(key_file, "Fonts", "Detail", NULL);
+    }
+    if (g_key_file_has_key(key_file, "Fonts", "Source", NULL)) {
+        g_free(state->source_font);
+        state->source_font = g_key_file_get_string(key_file, "Fonts", "Source", NULL);
+    }
+    if (state->detail_font == NULL || state->detail_font[0] == '\0') {
+        g_free(state->detail_font);
+        state->detail_font = g_strdup(DEFAULT_DETAIL_FONT);
+    }
+    if (state->source_font == NULL || state->source_font[0] == '\0') {
+        g_free(state->source_font);
+        state->source_font = g_strdup(DEFAULT_SOURCE_FONT);
+    }
+    g_free(path);
+    g_key_file_unref(key_file);
+}
+
+static gboolean save_settings(AppState *state, GError **error)
+{
+    GKeyFile *key_file;
+    gchar *path;
+    gchar *directory;
+    gchar *data;
+    gsize data_length;
+    gboolean saved;
+
+    key_file = g_key_file_new();
+    g_key_file_set_integer(key_file, "Parser", "Threads", (gint) state->source_thread_count);
+    g_key_file_set_string(key_file, "Fonts", "Detail", state->detail_font);
+    g_key_file_set_string(key_file, "Fonts", "Source", state->source_font);
+    data = g_key_file_to_data(key_file, &data_length, NULL);
+    path = settings_file_path();
+    directory = g_path_get_dirname(path);
+    if (g_mkdir_with_parents(directory, 0700) != 0) {
+        g_set_error(error,
+                    G_FILE_ERROR,
+                    g_file_error_from_errno(errno),
+                    "Unable to create settings directory '%s': %s",
+                    directory,
+                    g_strerror(errno));
+        saved = FALSE;
+    } else {
+        saved = g_file_set_contents(path, data, (gssize) data_length, error);
+    }
+    g_free(directory);
+    g_free(path);
+    g_free(data);
+    g_key_file_unref(key_file);
+    return saved;
+}
+
+static void apply_text_view_fonts(AppState *state)
+{
+    PangoFontDescription *description;
+    GtkCssProvider *provider;
+    GtkStyleContext *context;
+    gchar *family;
+    gchar *css;
+    gdouble size;
+    const gchar *description_family;
+    const gchar *style;
+
+    if (state->detail_view == NULL || state->source_view == NULL) {
+        return;
+    }
+
+    description = pango_font_description_from_string(state->detail_font);
+    description_family = pango_font_description_get_family(description);
+    family = g_strescape(description_family != NULL ? description_family : "Sans", NULL);
+    size = (gdouble) pango_font_description_get_size(description) / PANGO_SCALE;
+    style = pango_font_description_get_style(description) == PANGO_STYLE_ITALIC ? "italic" : "normal";
+    css = g_strdup_printf("textview { font-family: \"%s\"; font-size: %.1fpt; font-style: %s; font-weight: %d; }",
+                          family != NULL ? family : "Sans",
+                          size > 0.0 ? size : 11.0,
+                          style,
+                          pango_font_description_get_weight(description));
+    provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider, css, -1, NULL);
+    context = gtk_widget_get_style_context(state->detail_view);
+    if (state->detail_font_provider != NULL) {
+        gtk_style_context_remove_provider(context, GTK_STYLE_PROVIDER(state->detail_font_provider));
+        g_object_unref(state->detail_font_provider);
+    }
+    state->detail_font_provider = provider;
+    gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    g_free(css);
+    g_free(family);
+    pango_font_description_free(description);
+
+    description = pango_font_description_from_string(state->source_font);
+    description_family = pango_font_description_get_family(description);
+    family = g_strescape(description_family != NULL ? description_family : "Monospace", NULL);
+    size = (gdouble) pango_font_description_get_size(description) / PANGO_SCALE;
+    style = pango_font_description_get_style(description) == PANGO_STYLE_ITALIC ? "italic" : "normal";
+    css = g_strdup_printf("textview { font-family: \"%s\"; font-size: %.1fpt; font-style: %s; font-weight: %d; }",
+                          family != NULL ? family : "Monospace",
+                          size > 0.0 ? size : 11.0,
+                          style,
+                          pango_font_description_get_weight(description));
+    provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(provider, css, -1, NULL);
+    context = gtk_widget_get_style_context(state->source_view);
+    if (state->source_font_provider != NULL) {
+        gtk_style_context_remove_provider(context, GTK_STYLE_PROVIDER(state->source_font_provider));
+        g_object_unref(state->source_font_provider);
+    }
+    state->source_font_provider = provider;
+    gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    g_free(css);
+    g_free(family);
+    pango_font_description_free(description);
+}
+
+static gboolean documentation_word_character(gchar character)
+{
+    return g_ascii_isalnum(character) || character == '_' || character == '-' || character == '.';
+}
+
+static GHashTable *collect_documented_names(const OdysiaIndex *index)
+{
+    GHashTable *known_names;
+    GHashTable *documented_names;
+    guint symbol_index;
+    guint doc_index;
+
+    known_names = g_hash_table_new(g_str_hash, g_str_equal);
+    documented_names = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+    for (symbol_index = 0; symbol_index < index->symbols->len; symbol_index++) {
+        OdysiaSymbol *symbol;
+
+        symbol = g_ptr_array_index(index->symbols, symbol_index);
+        if (symbol->name == NULL || symbol->name[0] == '\0') {
+            continue;
+        }
+        g_hash_table_add(known_names, symbol->name);
+        if (symbol->documentation != NULL && symbol->documentation[0] != '\0') {
+            g_hash_table_add(documented_names, g_strdup(symbol->name));
+        }
+    }
+
+    for (doc_index = 0; doc_index < index->doc_files->len; doc_index++) {
+        OdysiaDocFile *doc_file;
+        const gchar *cursor;
+
+        doc_file = g_ptr_array_index(index->doc_files, doc_index);
+        cursor = doc_file->content;
+        while (cursor != NULL && *cursor != '\0') {
+            const gchar *word_start;
+            gchar *word;
+
+            while (*cursor != '\0' && !documentation_word_character(*cursor)) {
+                cursor++;
+            }
+            word_start = cursor;
+            while (*cursor != '\0' && documentation_word_character(*cursor)) {
+                cursor++;
+            }
+            if (cursor == word_start) {
+                continue;
+            }
+            word = g_strndup(word_start, cursor - word_start);
+            if (g_hash_table_contains(known_names, word)) {
+                g_hash_table_add(documented_names, word);
+            } else {
+                gchar *normalized_start;
+                gchar *normalized_end;
+
+                normalized_start = word;
+                normalized_end = word + strlen(word);
+                while (normalized_start < normalized_end &&
+                       (*normalized_start == '.' || *normalized_start == '-')) {
+                    normalized_start++;
+                }
+                while (normalized_end > normalized_start &&
+                       (normalized_end[-1] == '.' || normalized_end[-1] == '-')) {
+                    normalized_end--;
+                }
+                if (normalized_start < normalized_end) {
+                    gchar *normalized_word;
+
+                    normalized_word = g_strndup(normalized_start, normalized_end - normalized_start);
+                    if (g_hash_table_contains(known_names, normalized_word)) {
+                        g_hash_table_add(documented_names, normalized_word);
+                    } else {
+                        g_free(normalized_word);
+                    }
+                }
+                g_free(word);
+            }
+        }
+    }
+    g_hash_table_destroy(known_names);
+    return documented_names;
+}
+
+static void set_row_documentation_icon(TreeBuildTask *task,
+                                       GtkTreeIter *iter,
+                                       const OdysiaSymbol *symbol)
+{
+    const gchar *icon_name;
+
+    icon_name = symbol != NULL && symbol->name != NULL &&
+                g_hash_table_contains(task->documented_names, symbol->name)
+                ? "dialog-warning-symbolic"
+                : NULL;
+    gtk_tree_store_set(task->state->tree_store,
+                       iter,
+                       COLUMN_DOCUMENTATION_ICON, icon_name,
+                       -1);
+}
+
+static void set_application_icon(GtkWindow *window)
+{
+    GError *error;
+    GdkPixbuf *icon;
+
+    error = NULL;
+    icon = gdk_pixbuf_new_from_resource("/org/odysia/odysia-icon.png", &error);
+    if (icon == NULL) {
+        g_warning("Unable to load the Odysia application icon: %s",
+                  error != NULL ? error->message : "unknown error");
+        g_clear_error(&error);
+        return;
+    }
+    gtk_window_set_default_icon(icon);
+    gtk_window_set_icon(window, icon);
+    g_object_unref(icon);
+}
 
 static const gchar *symbol_icon_name(OdysiaSymbolKind kind)
 {
@@ -345,14 +639,52 @@ static void app_state_unref(AppState *state)
     clear_object_ptr((gpointer *) &state->build_stream);
     clear_object_ptr((gpointer *) &state->build_cancel);
     clear_object_ptr((gpointer *) &state->index_cancel);
+    clear_object_ptr((gpointer *) &state->detail_font_provider);
+    clear_object_ptr((gpointer *) &state->source_font_provider);
+    g_free(state->detail_font);
+    g_free(state->source_font);
     g_free(state);
 }
 
 static void set_indexing_controls_sensitive(AppState *state, gboolean sensitive)
 {
-    gtk_widget_set_sensitive(state->path_entry, sensitive);
-    gtk_widget_set_sensitive(state->search_entry, sensitive);
-    gtk_widget_set_sensitive(state->sort_combo, sensitive);
+    gboolean can_cancel_index;
+
+    can_cancel_index = !sensitive && state->index_cancel != NULL &&
+                       !g_cancellable_is_cancelled(state->index_cancel);
+    if (state->menu_bar != NULL) {
+        gtk_widget_set_sensitive(state->menu_bar, TRUE);
+    }
+    if (state->file_menu_item != NULL) {
+        gtk_widget_set_sensitive(state->file_menu_item, sensitive);
+    }
+    if (state->actions_menu_item != NULL) {
+        gtk_widget_set_sensitive(state->actions_menu_item, sensitive || can_cancel_index);
+    }
+    if (state->help_menu_item != NULL) {
+        gtk_widget_set_sensitive(state->help_menu_item, sensitive);
+    }
+    if (state->index_item != NULL) {
+        gtk_widget_set_sensitive(state->index_item, sensitive);
+    }
+    if (state->build_item != NULL) {
+        gtk_widget_set_sensitive(state->build_item, sensitive);
+    }
+    if (state->stop_item != NULL) {
+        gtk_widget_set_sensitive(state->stop_item, sensitive || can_cancel_index);
+    }
+    if (state->settings_item != NULL) {
+        gtk_widget_set_sensitive(state->settings_item, sensitive);
+    }
+    if (state->input_row != NULL) {
+        gtk_widget_set_sensitive(state->input_row, sensitive);
+    }
+    if (state->content_pane != NULL) {
+        gtk_widget_set_sensitive(state->content_pane, sensitive);
+    }
+    if (state->build_dialog != NULL) {
+        gtk_widget_set_sensitive(state->build_dialog, sensitive);
+    }
 }
 
 static void reset_progress_bars(AppState *state, const gchar *stage_text)
@@ -397,15 +729,20 @@ static void stop_active_work(AppState *state)
     if (state->indexing) {
         if (state->index_cancel != NULL) {
             g_cancellable_cancel(state->index_cancel);
+            set_indexing_controls_sensitive(state, FALSE);
+            gtk_progress_bar_set_text(GTK_PROGRESS_BAR(state->stage_progress_bar), "Cancelling...");
+            set_status(state, "Cancelling indexing...");
+            stopped_anything = TRUE;
         }
         if (state->tree_build_source_id != 0) {
             g_source_remove(state->tree_build_source_id);
             state->tree_build_source_id = 0;
+            state->indexing = FALSE;
+            clear_object_ptr((gpointer *) &state->index_cancel);
+            set_indexing_controls_sensitive(state, TRUE);
+            reset_progress_bars(state, "Stopped");
+            stopped_anything = TRUE;
         }
-        state->indexing = FALSE;
-        set_indexing_controls_sensitive(state, TRUE);
-        reset_progress_bars(state, "Stopped");
-        stopped_anything = TRUE;
     }
     if (state->build_process != NULL) {
         if (state->build_cancel != NULL) {
@@ -414,9 +751,9 @@ static void stop_active_work(AppState *state)
         g_subprocess_force_exit(state->build_process);
         stopped_anything = TRUE;
     }
-    if (stopped_anything) {
+    if (stopped_anything && !state->indexing) {
         set_status(state, "Stopped active work.");
-    } else {
+    } else if (!stopped_anything) {
         set_status(state, "No active indexing or build to stop.");
     }
 }
@@ -566,6 +903,30 @@ static void index_job_free(IndexJob *job)
     g_free(job);
 }
 
+static void load_result_free(LoadResult *result)
+{
+    if (result == NULL) {
+        return;
+    }
+    if (result->index != NULL) {
+        odysia_index_free(result->index);
+    }
+    app_state_unref(result->state);
+    g_free(result->error_message);
+    g_free(result->filename);
+    g_free(result);
+}
+
+static void load_job_free(LoadJob *job)
+{
+    if (job == NULL) {
+        return;
+    }
+    app_state_unref(job->state);
+    g_free(job->filename);
+    g_free(job);
+}
+
 static gboolean symbol_matches_query(OdysiaSymbol *symbol, const gchar *query_folded)
 {
     return text_matches_query(symbol->display_name, query_folded) ||
@@ -599,6 +960,9 @@ static void tree_build_task_free(TreeBuildTask *task)
     }
     if (task->language_iters != NULL) {
         g_hash_table_destroy(task->language_iters);
+    }
+    if (task->documented_names != NULL) {
+        g_hash_table_destroy(task->documented_names);
     }
     app_state_unref(task->state);
     g_free(task->query_folded);
@@ -800,6 +1164,7 @@ static gboolean tree_build_step(gpointer user_data)
                                                        location_text,
                                                        symbol->id,
                                                        400);
+                set_row_documentation_icon(task, &task->current_parent_iter, symbol);
                 g_free(tree_title);
                 g_free(location_text);
                 path = gtk_tree_model_get_path(GTK_TREE_MODEL(task->state->tree_store), &task->current_parent_iter);
@@ -855,6 +1220,7 @@ static gboolean tree_build_step(gpointer user_data)
                                             location_text,
                                             child->id,
                                             400);
+                    set_row_documentation_icon(task, &child_iter, child);
                     g_free(tree_title);
                     g_free(location_text);
                     child_path = gtk_tree_model_get_path(GTK_TREE_MODEL(task->state->tree_store), &child_iter);
@@ -895,6 +1261,7 @@ static gboolean tree_build_step(gpointer user_data)
         }
         task->state->tree_build_source_id = 0;
         task->state->indexing = FALSE;
+        clear_object_ptr((gpointer *) &task->state->index_cancel);
         gtk_widget_set_sensitive(task->state->overall_progress_bar, FALSE);
         gtk_widget_set_sensitive(task->state->stage_progress_bar, FALSE);
         set_indexing_controls_sensitive(task->state, TRUE);
@@ -1416,6 +1783,7 @@ static void rebuild_tree(AppState *state)
     task->language_iters = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
     task->category_iters = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
     task->letter_iters = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+    task->documented_names = collect_documented_names(state->index);
     query_text = gtk_entry_get_text(GTK_ENTRY(state->search_entry));
     task->query_folded = g_utf8_casefold(query_text != NULL ? query_text : "", -1);
     task->categories[0] = collect_category_matches(state, ODYSIA_SYMBOL_FUNCTION, TRUE, task->query_folded, task->sort_mode);
@@ -1601,6 +1969,7 @@ static gboolean apply_index_result(gpointer user_data)
 
     if (result->error_message != NULL) {
         result->state->indexing = FALSE;
+        clear_object_ptr((gpointer *) &result->state->index_cancel);
         set_indexing_controls_sensitive(result->state, TRUE);
         gtk_widget_set_sensitive(result->state->overall_progress_bar, FALSE);
         gtk_widget_set_sensitive(result->state->stage_progress_bar, FALSE);
@@ -1652,6 +2021,70 @@ static gpointer index_worker_thread(gpointer data)
 
     g_main_context_invoke(NULL, apply_index_result, result);
     index_job_free(job);
+    return NULL;
+}
+
+static gboolean apply_load_result(gpointer user_data)
+{
+    LoadResult *result;
+    AppState *state;
+
+    result = user_data;
+    state = result->state;
+    if (g_atomic_int_get(&state->shutting_down)) {
+        if (state->index_thread != NULL) {
+            g_thread_unref(state->index_thread);
+            state->index_thread = NULL;
+        }
+        load_result_free(result);
+        return G_SOURCE_REMOVE;
+    }
+    if (state->index_thread != NULL) {
+        g_thread_unref(state->index_thread);
+        state->index_thread = NULL;
+    }
+    if (result->error_message != NULL) {
+        state->indexing = FALSE;
+        set_indexing_controls_sensitive(state, TRUE);
+        reset_progress_bars(state, "SQLite load failed");
+        set_status(state, result->error_message);
+        load_result_free(result);
+        return G_SOURCE_REMOVE;
+    }
+
+    clear_loaded_index_data(state);
+    state->index = result->index;
+    result->index = NULL;
+    gtk_entry_set_text(GTK_ENTRY(state->path_entry),
+                       state->index->root_path != NULL ? state->index->root_path : "");
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(state->overall_progress_bar), 0.9);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(state->stage_progress_bar), "Building loaded symbol tree...");
+    set_status(state, "SQLite index loaded; building symbol tree...");
+    rebuild_tree(state);
+    load_result_free(result);
+    return G_SOURCE_REMOVE;
+}
+
+static gpointer load_worker_thread(gpointer data)
+{
+    LoadJob *job;
+    LoadResult *result;
+    GError *error;
+
+    job = data;
+    result = g_new0(LoadResult, 1);
+    result->state = app_state_ref(job->state);
+    result->filename = g_strdup(job->filename);
+    error = NULL;
+    result->index = odysia_index_load_sqlite(job->filename, &error);
+    if (error != NULL) {
+        result->error_message = g_strdup(error->message);
+        g_error_free(error);
+    } else if (result->index == NULL) {
+        result->error_message = g_strdup("SQLite loading returned no index.");
+    }
+    g_main_context_invoke(NULL, apply_load_result, result);
+    load_job_free(job);
     return NULL;
 }
 
@@ -1817,6 +2250,10 @@ static void start_kernel_build(AppState *state)
     const gchar *path_text;
 
     path_text = gtk_entry_get_text(GTK_ENTRY(state->path_entry));
+    if (state->indexing) {
+        set_status(state, "Wait for indexing or SQLite loading to finish before building.");
+        return;
+    }
     if (path_text == NULL || path_text[0] == '\0') {
         set_status(state, "Select a Linux source tree before building.");
         return;
@@ -1903,6 +2340,10 @@ static void index_source_tree(AppState *state)
 
     if (state->indexing) {
         set_status(state, "Indexing is already in progress.");
+        return;
+    }
+    if (state->build_process != NULL) {
+        set_status(state, "Stop the active kernel build before indexing.");
         return;
     }
 
@@ -2079,7 +2520,7 @@ static void on_about_clicked(GtkWidget *item, gpointer user_data)
     gtk_show_about_dialog(GTK_WINDOW(state->window),
                           "program-name", "Odysia",
                           "version", PACKAGE_VERSION,
-                          "comments", "Beta 3 - Linux source and documentation explorer for kernel development.",
+                          "comments", "Beta 5 - Linux source and documentation explorer for kernel development.",
                           "website", "https://kernel.org",
                           "authors", authors,
                           NULL);
@@ -2125,6 +2566,9 @@ static void on_settings_clicked(GtkWidget *item, gpointer user_data)
     GtkWidget *cpu_button;
     GtkWidget *double_button;
     GtkWidget *triple_button;
+    GtkWidget *font_grid;
+    GtkWidget *detail_font_button;
+    GtkWidget *source_font_button;
     guint cpu_count;
     gint response;
 
@@ -2134,6 +2578,7 @@ static void on_settings_clicked(GtkWidget *item, gpointer user_data)
     dialog = gtk_dialog_new_with_buttons("Settings",
                                          GTK_WINDOW(state->window),
                                          GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         "Reset Defaults", GTK_RESPONSE_REJECT,
                                          "Cancel", GTK_RESPONSE_CANCEL,
                                          "Apply", GTK_RESPONSE_APPLY,
                                          NULL);
@@ -2169,13 +2614,55 @@ static void on_settings_clicked(GtkWidget *item, gpointer user_data)
     gtk_box_pack_start(GTK_BOX(controls), double_button, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(controls), triple_button, FALSE, FALSE, 0);
 
+    font_grid = gtk_grid_new();
+    gtk_grid_set_row_spacing(GTK_GRID(font_grid), 8);
+    gtk_grid_set_column_spacing(GTK_GRID(font_grid), 12);
+    gtk_box_pack_start(GTK_BOX(box), font_grid, FALSE, FALSE, 0);
+    description = gtk_label_new("Detail pane font");
+    gtk_label_set_xalign(GTK_LABEL(description), 0.0f);
+    gtk_grid_attach(GTK_GRID(font_grid), description, 0, 0, 1, 1);
+    detail_font_button = gtk_font_button_new_with_font(state->detail_font);
+    gtk_font_button_set_show_style(GTK_FONT_BUTTON(detail_font_button), TRUE);
+    gtk_font_button_set_show_size(GTK_FONT_BUTTON(detail_font_button), TRUE);
+    gtk_widget_set_hexpand(detail_font_button, TRUE);
+    gtk_grid_attach(GTK_GRID(font_grid), detail_font_button, 1, 0, 1, 1);
+    description = gtk_label_new("Source pane font");
+    gtk_label_set_xalign(GTK_LABEL(description), 0.0f);
+    gtk_grid_attach(GTK_GRID(font_grid), description, 0, 1, 1, 1);
+    source_font_button = gtk_font_button_new_with_font(state->source_font);
+    gtk_font_button_set_show_style(GTK_FONT_BUTTON(source_font_button), TRUE);
+    gtk_font_button_set_show_size(GTK_FONT_BUTTON(source_font_button), TRUE);
+    gtk_widget_set_hexpand(source_font_button, TRUE);
+    gtk_grid_attach(GTK_GRID(font_grid), source_font_button, 1, 1, 1, 1);
+
     gtk_widget_show_all(dialog);
-    response = gtk_dialog_run(GTK_DIALOG(dialog));
+    do {
+        response = gtk_dialog_run(GTK_DIALOG(dialog));
+        if (response == GTK_RESPONSE_REJECT) {
+            gtk_spin_button_set_value(GTK_SPIN_BUTTON(spin), (gdouble) cpu_count);
+            gtk_font_chooser_set_font(GTK_FONT_CHOOSER(detail_font_button), DEFAULT_DETAIL_FONT);
+            gtk_font_chooser_set_font(GTK_FONT_CHOOSER(source_font_button), DEFAULT_SOURCE_FONT);
+        }
+    } while (response == GTK_RESPONSE_REJECT);
     if (response == GTK_RESPONSE_APPLY) {
+        GError *error;
         gchar *status_text;
 
         state->source_thread_count = (guint) gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(spin));
-        status_text = g_strdup_printf("Source parser thread count set to %u.", state->source_thread_count);
+        g_free(state->detail_font);
+        g_free(state->source_font);
+        state->detail_font = gtk_font_chooser_get_font(GTK_FONT_CHOOSER(detail_font_button));
+        state->source_font = gtk_font_chooser_get_font(GTK_FONT_CHOOSER(source_font_button));
+        apply_text_view_fonts(state);
+        error = NULL;
+        if (save_settings(state, &error)) {
+            status_text = g_strdup_printf("Settings saved with %u parser threads.",
+                                          state->source_thread_count);
+        } else {
+            status_text = g_strdup_printf("Settings applied but could not be saved: %s",
+                                          error != NULL ? error->message : "unknown error");
+            g_clear_error(&error);
+        }
         set_status(state, status_text);
         g_free(status_text);
     }
@@ -2229,6 +2716,14 @@ static void on_open_index_clicked(GtkWidget *item, gpointer user_data)
 
     (void) item;
     state = user_data;
+    if (state->indexing) {
+        set_status(state, "Wait for the current operation to finish before loading an index.");
+        return;
+    }
+    if (state->build_process != NULL) {
+        set_status(state, "Stop the active kernel build before loading an index.");
+        return;
+    }
     chooser = gtk_file_chooser_native_new("Open parsed index",
                                           GTK_WINDOW(state->window),
                                           GTK_FILE_CHOOSER_ACTION_OPEN,
@@ -2237,32 +2732,23 @@ static void on_open_index_clicked(GtkWidget *item, gpointer user_data)
     result = gtk_native_dialog_run(GTK_NATIVE_DIALOG(chooser));
     if (result == GTK_RESPONSE_ACCEPT) {
         gchar *filename;
-        OdysiaIndex *loaded_index;
-        GError *error;
+        LoadJob *job;
 
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
-        error = NULL;
-        loaded_index = odysia_index_load_sqlite(filename, &error);
-        if (loaded_index == NULL) {
-            set_status(state, error != NULL ? error->message : "Failed to open SQLite index.");
-            if (error != NULL) {
-                g_error_free(error);
-            }
-            g_free(filename);
-            g_object_unref(chooser);
-            return;
-        }
-
-        stop_active_work(state);
-        clear_loaded_index_data(state);
-        if (state->index != NULL) {
-            odysia_index_free(state->index);
-        }
-        state->index = loaded_index;
-        rebuild_tree(state);
-        set_indexing_controls_sensitive(state, TRUE);
-        reset_progress_bars(state, "Loaded from SQLite");
-        set_status(state, "Loaded parsed index from SQLite.");
+        state->indexing = TRUE;
+        clear_object_ptr((gpointer *) &state->index_cancel);
+        set_indexing_controls_sensitive(state, FALSE);
+        gtk_widget_set_sensitive(state->overall_progress_bar, TRUE);
+        gtk_widget_set_sensitive(state->stage_progress_bar, TRUE);
+        gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(state->overall_progress_bar), 0.0);
+        gtk_progress_bar_pulse(GTK_PROGRESS_BAR(state->stage_progress_bar));
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(state->overall_progress_bar), "Loading SQLite index");
+        gtk_progress_bar_set_text(GTK_PROGRESS_BAR(state->stage_progress_bar), "Reading database...");
+        set_status(state, "Loading SQLite index...");
+        job = g_new0(LoadJob, 1);
+        job->state = app_state_ref(state);
+        job->filename = g_strdup(filename);
+        state->index_thread = g_thread_new("odysia-load", load_worker_thread, job);
         g_free(filename);
     }
     g_object_unref(chooser);
@@ -2338,13 +2824,14 @@ static void activate(GtkApplication *app, gpointer user_data)
     state = g_new0(AppState, 1);
     state->app = app;
     state->ref_count = 1;
-    state->source_thread_count = MAX(1, g_get_num_processors());
+    load_settings(state);
     state->detail_links = g_ptr_array_new_with_free_func(link_range_free);
     state->row_paths = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
 
     window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "Odysia Linux Source Explorer");
     gtk_window_set_default_size(GTK_WINDOW(window), 1400, 900);
+    set_application_icon(GTK_WINDOW(window));
     state->window = window;
     g_object_set_data_full(G_OBJECT(window), "odysia-state", state, (GDestroyNotify) app_state_unref);
 
@@ -2352,11 +2839,15 @@ static void activate(GtkApplication *app, gpointer user_data)
     gtk_container_add(GTK_CONTAINER(window), root);
 
     menu_bar = gtk_menu_bar_new();
+    state->menu_bar = menu_bar;
     gtk_box_pack_start(GTK_BOX(root), menu_bar, FALSE, FALSE, 0);
 
     file_menu_item = create_menu_item_with_icon("File", "document-open-symbolic");
     actions_menu_item = create_menu_item_with_icon("Actions", "applications-system-symbolic");
     help_menu_item = create_menu_item_with_icon("Help", "help-browser-symbolic");
+    state->file_menu_item = file_menu_item;
+    state->actions_menu_item = actions_menu_item;
+    state->help_menu_item = help_menu_item;
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), file_menu_item);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), actions_menu_item);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu_bar), help_menu_item);
@@ -2383,6 +2874,10 @@ static void activate(GtkApplication *app, gpointer user_data)
     build_item = create_menu_item_with_icon("Build Kernel", "applications-engineering-symbolic");
     stop_item = create_menu_item_with_icon("Stop", "process-stop-symbolic");
     settings_item = create_menu_item_with_icon("Settings", "preferences-system-symbolic");
+    state->index_item = index_item;
+    state->build_item = build_item;
+    state->stop_item = stop_item;
+    state->settings_item = settings_item;
     gtk_menu_shell_append(GTK_MENU_SHELL(actions_menu), index_item);
     gtk_menu_shell_append(GTK_MENU_SHELL(actions_menu), build_item);
     gtk_menu_shell_append(GTK_MENU_SHELL(actions_menu), stop_item);
@@ -2392,6 +2887,7 @@ static void activate(GtkApplication *app, gpointer user_data)
     gtk_menu_shell_append(GTK_MENU_SHELL(help_menu), about_item);
 
     input_row = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+    state->input_row = input_row;
     gtk_box_pack_start(GTK_BOX(root), input_row, FALSE, FALSE, 8);
 
     state->path_entry = gtk_entry_new();
@@ -2431,9 +2927,11 @@ static void activate(GtkApplication *app, gpointer user_data)
     gtk_box_pack_start(GTK_BOX(progress_box), state->stage_progress_bar, FALSE, FALSE, 0);
 
     pane = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
+    state->content_pane = pane;
     gtk_box_pack_start(GTK_BOX(root), pane, TRUE, TRUE, 0);
 
     state->tree_store = gtk_tree_store_new(N_COLUMNS,
+                                           G_TYPE_STRING,
                                            G_TYPE_STRING,
                                            G_TYPE_STRING,
                                            G_TYPE_STRING,
@@ -2446,6 +2944,20 @@ static void activate(GtkApplication *app, gpointer user_data)
 
         icon_renderer = gtk_cell_renderer_pixbuf_new();
         column = gtk_tree_view_column_new_with_attributes("", icon_renderer, "icon-name", COLUMN_ICON_NAME, NULL);
+        gtk_tree_view_append_column(GTK_TREE_VIEW(state->tree_view), column);
+    }
+    {
+        GtkCellRenderer *documentation_renderer;
+
+        documentation_renderer = gtk_cell_renderer_pixbuf_new();
+        column = gtk_tree_view_column_new_with_attributes("Docs",
+                                                          documentation_renderer,
+                                                          "icon-name",
+                                                          COLUMN_DOCUMENTATION_ICON,
+                                                          NULL);
+        gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
+        gtk_tree_view_column_set_fixed_width(column, 48);
+        gtk_tree_view_column_set_resizable(column, FALSE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(state->tree_view), column);
     }
     renderer = gtk_cell_renderer_text_new();
@@ -2528,6 +3040,7 @@ static void activate(GtkApplication *app, gpointer user_data)
     source_scroll = gtk_scrolled_window_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER(source_scroll), state->source_view);
     gtk_paned_pack2(GTK_PANED(right_pane), source_scroll, TRUE, FALSE);
+    apply_text_view_fonts(state);
 
     state->status_bar = gtk_statusbar_new();
     state->status_context_id = gtk_statusbar_get_context_id(GTK_STATUSBAR(state->status_bar), "odysia");
@@ -2560,7 +3073,7 @@ GtkApplication *odysia_create_application(void)
 {
     GtkApplication *app;
 
-    app = gtk_application_new("dev.odysia.app", G_APPLICATION_DEFAULT_FLAGS);
+    app = gtk_application_new("org.odysia.Odysia", G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     return app;
 }

@@ -1,0 +1,235 @@
+.TH ODYSIA 1 "July 25, 2026" "Odysia 0.5.0-beta5" "User Commands"
+.SH NAME
+odysia \- explore Linux kernel source code and documentation
+.SH SYNOPSIS
+.B odysia
+.SH DESCRIPTION
+.B Odysia
+is a GTK3 desktop source explorer for the Linux kernel and other supported
+source trees.  It builds a local, navigable index of declarations,
+relationships, source locations, source snippets, and documentation.
+.PP
+The application parses source files concurrently, keeps the interface
+responsive during indexing, and can save or restore a complete index in an
+SQLite database.  Source analysis is local and does not upload files or
+require an AI service.
+.SH WORKFLOW
+.TP
+.B 1.
+Choose
+.B File > Select Source Tree
+and select a Linux kernel or supported source directory.
+.TP
+.B 2.
+Optionally choose
+.B Actions > Settings
+to change the source parser thread count.
+.TP
+.B 3.
+Choose
+.B Actions > Index
+to discover source and documentation files and build the symbol tree.
+.TP
+.B 4.
+Filter or sort the tree, select an entry, inspect its details and source, and
+follow clickable symbol relationships.
+.TP
+.B 5.
+Choose
+.B File > Save SQLite Index
+to preserve the index for a later session.
+.SH INTERFACE
+.SS File menu
+.TP
+.B Select Source Tree
+Select the root directory to index.  Pressing Enter in the source-tree entry
+also starts indexing.
+.TP
+.B Open SQLite Index
+Load a previously saved Odysia index, including symbols, child relationships,
+relations, documentation, source metadata, and the original root path.
+.TP
+.B Save SQLite Index
+Write the complete loaded index to an SQLite database.  Saving to an existing
+file replaces its Odysia tables transactionally.
+.TP
+.B Clear Data
+Cancel active work and remove the loaded index, filter, tree rows, details,
+and progress state from the application.
+.TP
+.B Quit
+Close the application and cancel active indexing or build monitoring.
+.SS Actions menu
+.TP
+.B Index
+Build an index of the selected source tree.  Discovery, source parsing,
+documentation parsing, and tree construction are shown as separate progress
+stages.
+.TP
+.B Build Kernel
+Run
+.B make \-j1 V=1
+in the selected source tree.  The build dialog merges standard error with
+standard output, streams the log, and displays the current compilation unit.
+The source tree must already be configured for the intended native or cross
+build.
+.TP
+.B Stop
+Cancel active source indexing or stop an active monitored kernel build.  During
+indexing this is the only available application action; other controls remain
+disabled until cancellation completes.  It remains disabled during SQLite
+loading.
+.TP
+.B Settings
+Set the bounded GLib source parser worker count.  The default is one worker per
+detected logical CPU.  The CPU, 2x, and 3x presets select one, two, or three
+times that count.  Separate font selectors control the detail and source panes.
+Apply saves all three settings across launches.  Reset Defaults selects one
+worker per detected logical CPU,
+.B Sans 11
+for details, and
+.B Monospace 11
+for source; select Apply to save the reset values.  Larger worker counts are not
+necessarily faster.
+.SS Help menu
+.TP
+.B About
+Display the program name and package version.
+.SH SYMBOL TREE
+The tree hierarchy is programming language, construct kind, initial letter,
+and symbol.  Nonalphabetic names are placed under
+.BR # .
+Owned fields, parameters, local variables, and enumerators remain beneath
+their parent declaration.
+.PP
+The tree contains columns for the symbol-kind icon,
+.BR Docs ,
+.BR Symbol ,
+.BR Type ,
+and
+.BR "Directory / Source" .
+A warning-style exclamation icon in the
+.B Docs
+column means the entry has inline documentation or is mentioned in an indexed
+external documentation file.
+.PP
+Functions are displayed with parentheses, for example
+.BR schedule() .
+The filter searches names, source paths, signatures, types, documentation, and
+symbol kinds.  Results can be sorted by name, source line, or symbol kind.
+.PP
+During source indexing, SQLite loading, and symbol-tree construction, inputs,
+tree rows, text panes, and unrelated menu actions are disabled.  Stop remains
+available during source indexing and its tree construction.  Progress and
+status remain visible, and controls are restored only when the operation
+finishes, is cancelled, or fails.
+.SH SUPPORTED INPUTS
+.SS C and headers
+Files ending in
+.B .c
+or
+.B .h
+receive the deepest analysis.  Odysia extracts functions, structs, unions,
+enums, enumerators, typedefs, globals, fields, parameters, local variables,
+function pointers, return types, calls, and common C99, GNU, and Linux kernel
+declaration patterns.
+.SS Other kernel source formats
+Declaration-oriented scanners index:
+.TP
+.B Rust (.rs)
+Functions, structs, enums, unions, traits, modules, aliases, constants,
+statics, and macro rules.
+.TP
+.B Assembly (.S, .s, .asm)
+Kernel function-entry macros, assembly macros, and labels.
+.TP
+.B Python (.py), shell (.sh), Perl (.pl, .pm), and AWK (.awk)
+Functions, classes, packages, and other principal declarations.  Extensionless
+scripts using recognized shebang lines are also discovered.
+.TP
+.B Device tree (.dts, .dtsi)
+Labeled and unlabeled device nodes.
+.TP
+.B Coccinelle (.cocci)
+Named semantic-patch rules.
+.TP
+.B Lex and Yacc (.l, .y)
+Named grammar rules.
+.TP
+.B Linker scripts (.lds, .lds.S)
+Named labels and sections.
+.TP
+.B Make and Kbuild
+Targets and variables in
+.BR Makefile* ,
+.BR Kbuild* ,
+and
+.B .mk
+files.
+.TP
+.B Kconfig
+Configuration and menu declarations in
+.B Kconfig*
+files.
+.SS Documentation
+Odysia indexes
+.BR .rst ,
+.BR .txt ,
+and
+.B .md
+files.  Matching documentation excerpts are displayed with selected symbols.
+Kernel-style inline documentation comments are attached to parsed declarations.
+.SH DETAILS AND SOURCE
+Selecting a symbol displays its kind, name, signature or type, source location,
+inline documentation, child declarations, relationships, and matching external
+documentation.  Related symbols and types are clickable.  The source pane shows
+the indexed snippet with C and kernel-aware highlighting where applicable.
+.SH SQLITE INDEXES
+SQLite files contain the source root, symbols, parent-child ordering,
+relationships, documentation files, source locations, signatures, types,
+snippets, and inline documentation.  Loaded indexes retain programming-language
+grouping because language is derived from persisted source metadata.
+.PP
+Database save and load are local operations.  SQLite loading runs on a worker
+thread while application controls are locked.  A database does not need the
+original source tree to display persisted data, although source-tree build
+monitoring still requires a valid tree.
+.SH SETTINGS
+Odysia persists parser thread count and the detail/source font descriptions in
+a GLib key file named
+.IR odysia/settings.ini
+below the platform user configuration directory.  On typical Linux and BSD
+systems this is
+.IR ${XDG_CONFIG_HOME:-$HOME/.config}/odysia/settings.ini .
+On macOS it is below
+.IR "$HOME/Library/Application Support/odysia" .
+Windows uses the GLib user configuration directory.
+.SH FILES
+.TP
+.I ${bindir}/odysia
+Installed executable.
+.TP
+.I ${mandir}/man1/odysia.1
+Installed manual page.
+.TP
+.I ${datadir}/applications/org.odysia.Odysia.desktop
+Linux desktop launcher.
+.TP
+.I ${datadir}/icons/hicolor/512x512/apps/odysia-icon.png
+Linux application icon.
+.TP
+.I dist/Odysia.app
+macOS application bundle produced by
+.BR "make macos-bundle" .
+.SH EXIT STATUS
+.B Odysia
+returns zero after a normal application shutdown and nonzero if GTK application
+initialization or execution fails.
+.SH LIMITATIONS
+The parser is designed for broad source exploration and is not a compiler or
+language server.  Complex macro-generated declarations may be incomplete.
+Non-C scanners are declaration-oriented heuristics.  Available symbolic UI
+icons and appearance depend on the GTK theme.
+.SH SEE ALSO
+.BR make (1),
+.BR sqlite3 (1)

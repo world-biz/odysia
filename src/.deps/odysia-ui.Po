@@ -1,9 +1,7 @@
-tests/test_indexer.o: tests/test_indexer.c tests/../src/indexer.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/giotypes.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gioenums.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib-object.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gbinding.h \
+src/odysia-ui.o: src/ui.c src/ui.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtk.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdk.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkconfig.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/galloca.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gtypes.h \
@@ -247,6 +245,13 @@ tests/test_indexer.o: tests/test_indexer.c tests/../src/indexer.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/qos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mach_port_t.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/glib-autocleanups.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkversionmacros.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkapplaunchcontext.h \
+  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio.h \
+  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/giotypes.h \
+  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gioenums.h \
+  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib-object.h \
+  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gbinding.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gobject.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gtype.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gobject-visibility.h \
@@ -434,23 +439,409 @@ tests/test_indexer.o: tests/test_indexer.c tests/../src/indexer.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibcompressor.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibdecompressor.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio-autocleanups.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gstdio.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gprintf.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdktypes.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-attributes.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-font.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-coverage.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-version-macros.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-features.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-blob.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-common.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_inttypes.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-script-list.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-buffer.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-unicode.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-font.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-face.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-map.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-set.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-draw.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-paint.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-deprecated.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-shape.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-shape-plan.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-style.h \
+  /opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-version.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-types.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-gravity.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-matrix.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-script.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-language.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-bidi-type.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-direction.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-color.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-break.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-item.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-context.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-fontmap.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-fontset.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-engine.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-glyph.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-enum-types.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-fontset-simple.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-glyph-item.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-layout.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-tabs.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-markup.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-renderer.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-utils.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h
-tests/../src/indexer.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/giotypes.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gioenums.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib-object.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gbinding.h:
+  /opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo.h \
+  /opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo-version.h \
+  /opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo-features.h \
+  /opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo-deprecated.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkscreen.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdisplay.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkevents.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdnd.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevice.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevicetool.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevicemanager.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkseat.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkwindow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdrawingcontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkframeclock.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkframetimings.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkmonitor.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkrectangle.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkcairo.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/deprecated/gdkcolor.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkrgba.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkpixbuf.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-macros.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-features.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-core.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-transform.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-animation.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-io.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-loader.h \
+  /opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h \
+  /opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pangocairo.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkcursor.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevicepad.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdisplaymanager.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkenumtypes.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkglcontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkkeys.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkkeysyms.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkmain.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkpango.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkproperty.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkselection.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdktestutils.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkthreads.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkvisual.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdk-autocleanup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaboutdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwindow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkapplication.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwidget.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccelgroup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkenums.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkborder.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktypes.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atk.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atk-enum-types.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkversion.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkaction.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkobject.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrelationtype.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkstate.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkcomponent.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkutil.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkdocument.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkeditabletext.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atktext.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkgobjectaccessible.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkhyperlink.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkhyperlinkimpl.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkhypertext.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkimage.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkmisc.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atknoopobject.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atknoopobjectfactory.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkobjectfactory.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkplug.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrange.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkregistry.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrelation.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrelationset.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkselection.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atksocket.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkstateset.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkstreamablecontent.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atktable.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atktablecell.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkvalue.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkwindow.h \
+  /opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atk-autocleanups.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbin.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcontainer.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccellabel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklabel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkmisc.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenu.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenushell.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccelmap.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccessible.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkactionable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkactionbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkadjustment.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooser.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooserdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooserwidget.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooserbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcombobox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreemodel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreeview.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreeviewcolumn.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderer.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcelleditable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreesortable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellarea.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdnd.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkselection.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextiter.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextattributes.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextchild.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktexttag.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkentry.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeditable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimcontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkentrybuffer.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkentrycompletion.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkliststore.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreemodelfilter.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimage.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkapplicationwindow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutswindow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaspectframe.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkframe.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkassistant.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbindings.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbuildable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbuilder.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcalendar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellareabox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellareacontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcelllayout.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendereraccel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderertext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderercombo.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererpixbuf.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererprogress.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererspin.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererspinner.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderertoggle.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellview.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcheckbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktogglebutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcheckmenuitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenuitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkclipboard.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorchooser.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorchooserdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorchooserwidget.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorutils.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcomboboxtext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcssprovider.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcsssection.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdebug.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdragdest.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdragsource.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdrawingarea.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontroller.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontrollerkey.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontrollermotion.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontrollerscroll.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkexpander.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfixed.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooser.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilefilter.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooserbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooserdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechoosernative.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtknativedialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooserwidget.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkflowbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontchooser.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontchooserdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontchooserwidget.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesture.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturedrag.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturesingle.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturelongpress.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturemultipress.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturepan.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturerotate.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturestylus.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgestureswipe.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturezoom.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkglarea.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgrid.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkheaderbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkicontheme.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstylecontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstyleprovider.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkiconfactory.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstyleproperties.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkiconview.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktooltip.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimcontextinfo.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimcontextsimple.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimmulticontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkinfobar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkinvisible.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklayout.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklevelbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklinkbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklistbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklockbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmain.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenubar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenubutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpopover.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenutoolbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksizegroup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmessagedialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmodelbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmodules.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmountoperation.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtknotebook.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkoffscreenwindow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkorientable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkoverlay.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpadcontroller.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpagesetup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpapersize.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpaned.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkplacessidebar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpopovermenu.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintcontext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintoperation.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintsettings.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintoperationpreview.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprogressbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkradiobutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkradiomenuitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkradiotoolbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoggletoolbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrange.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchooser.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentmanager.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentfilter.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchooserdialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchoosermenu.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchooserwidget.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrender.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrevealer.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscale.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscalebutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscrollable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscrollbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscrolledwindow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksearchbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksearchentry.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkseparator.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkseparatormenuitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkseparatortoolitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksettings.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutlabel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutsgroup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutssection.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutsshortcut.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstacksidebar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstack.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksizerequest.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkspinbutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkspinner.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstackswitcher.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstatusbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkswitch.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextbuffer.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktexttagtable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextmark.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextbufferrichtext.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextview.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolitemgroup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolpalette.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolshell.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktestutils.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreednd.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreemodelsort.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreeselection.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreestore.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktypebuiltins.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkversion.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkviewport.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkvolumebutton.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwidgetpath.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwindowgroup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkarrow.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkactivatable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkaction.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkactiongroup.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstock.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkalignment.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkcolorsel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkcolorseldialog.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkfontsel.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkgradient.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtksymboliccolor.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhandlebox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhbbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhpaned.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhsv.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhscale.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhscrollbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhseparator.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkimagemenuitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtknumerableicon.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkradioaction.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtktoggleaction.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkrc.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkrecentaction.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstatusicon.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstyle.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtktable.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtktearoffmenuitem.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkthemingengine.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkuimanager.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvbbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvbox.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvpaned.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvscale.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvscrollbar.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvseparator.h \
+  /opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtk-autocleanups.h \
+  src/indexer.h config.h
+src/ui.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtk.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdk.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkconfig.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/galloca.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gtypes.h:
@@ -694,6 +1085,13 @@ tests/../src/indexer.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/qos.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mach_port_t.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/glib-autocleanups.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkversionmacros.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkapplaunchcontext.h:
+/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio.h:
+/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/giotypes.h:
+/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gioenums.h:
+/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib-object.h:
+/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gbinding.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gobject.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gtype.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gobject/gobject-visibility.h:
@@ -881,14 +1279,403 @@ tests/../src/indexer.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibcompressor.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibdecompressor.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio-autocleanups.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gstdio.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gprintf.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdktypes.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-attributes.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-font.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-coverage.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-version-macros.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-features.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-blob.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-common.h:
+/Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_inttypes.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-script-list.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-buffer.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-unicode.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-font.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-face.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-map.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-set.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-draw.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-paint.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-deprecated.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-shape.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-shape-plan.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-style.h:
+/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz/hb-version.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-types.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-gravity.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-matrix.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-script.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-language.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-bidi-type.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-direction.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-color.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-break.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-item.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-context.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-fontmap.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-fontset.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-engine.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-glyph.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-enum-types.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-fontset-simple.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-glyph-item.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-layout.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-tabs.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-markup.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-renderer.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pango-utils.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h:
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h:
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h:
+/opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo.h:
+/opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo-version.h:
+/opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo-features.h:
+/opt/homebrew/Cellar/cairo/1.18.4/include/cairo/cairo-deprecated.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkscreen.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdisplay.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkevents.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdnd.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevice.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevicetool.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevicemanager.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkseat.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkwindow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdrawingcontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkframeclock.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkframetimings.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkmonitor.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkrectangle.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkcairo.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/deprecated/gdkcolor.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkrgba.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkpixbuf.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-macros.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-features.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-core.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-transform.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-animation.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-simple-anim.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-io.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-loader.h:
+/opt/homebrew/include/gdk-pixbuf-2.0/gdk-pixbuf/gdk-pixbuf-enum-types.h:
+/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0/pango/pangocairo.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkcursor.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdevicepad.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkdisplaymanager.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkenumtypes.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkglcontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkkeys.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkkeysyms.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkmain.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkpango.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkproperty.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkselection.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdktestutils.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkthreads.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdkvisual.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gdk/gdk-autocleanup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaboutdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwindow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkapplication.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwidget.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccelgroup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkenums.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkborder.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktypes.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atk.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atk-enum-types.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkversion.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkaction.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkobject.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrelationtype.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkstate.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkcomponent.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkutil.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkdocument.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkeditabletext.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atktext.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkgobjectaccessible.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkhyperlink.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkhyperlinkimpl.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkhypertext.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkimage.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkmisc.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atknoopobject.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atknoopobjectfactory.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkobjectfactory.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkplug.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrange.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkregistry.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrelation.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkrelationset.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkselection.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atksocket.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkstateset.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkstreamablecontent.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atktable.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atktablecell.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkvalue.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atkwindow.h:
+/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0/atk/atk-autocleanups.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbin.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcontainer.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccellabel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklabel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkmisc.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenu.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenushell.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccelmap.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaccessible.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkactionable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkactionbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkadjustment.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooser.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooserdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooserwidget.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkappchooserbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcombobox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreemodel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreeview.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreeviewcolumn.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderer.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcelleditable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreesortable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellarea.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdnd.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkselection.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextiter.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextattributes.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextchild.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktexttag.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkentry.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeditable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimcontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkentrybuffer.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkentrycompletion.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkliststore.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreemodelfilter.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimage.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkapplicationwindow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutswindow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkaspectframe.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkframe.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkassistant.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbindings.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbuildable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbuilder.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcalendar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellareabox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellareacontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcelllayout.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendereraccel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderertext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderercombo.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererpixbuf.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererprogress.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererspin.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrendererspinner.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellrenderertoggle.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcellview.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcheckbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktogglebutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcheckmenuitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenuitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkclipboard.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorchooser.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorchooserdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorchooserwidget.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcolorutils.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcomboboxtext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcssprovider.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkcsssection.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdebug.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdragdest.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdragsource.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkdrawingarea.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontroller.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontrollerkey.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontrollermotion.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkeventcontrollerscroll.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkexpander.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfixed.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooser.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilefilter.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooserbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooserdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechoosernative.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtknativedialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfilechooserwidget.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkflowbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontchooser.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontchooserdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkfontchooserwidget.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesture.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturedrag.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturesingle.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturelongpress.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturemultipress.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturepan.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturerotate.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturestylus.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgestureswipe.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgesturezoom.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkglarea.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkgrid.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkheaderbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkicontheme.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstylecontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstyleprovider.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkiconfactory.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstyleproperties.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkiconview.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktooltip.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimcontextinfo.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimcontextsimple.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkimmulticontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkinfobar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkinvisible.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklayout.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklevelbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklinkbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklistbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtklockbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmain.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenubar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenubutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpopover.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmenutoolbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksizegroup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmessagedialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmodelbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmodules.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkmountoperation.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtknotebook.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkoffscreenwindow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkorientable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkoverlay.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpadcontroller.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpagesetup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpapersize.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpaned.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkplacessidebar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkpopovermenu.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintcontext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintoperation.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintsettings.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprintoperationpreview.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkprogressbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkradiobutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkradiomenuitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkradiotoolbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoggletoolbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrange.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchooser.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentmanager.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentfilter.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchooserdialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchoosermenu.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrecentchooserwidget.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrender.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkrevealer.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscale.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscalebutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscrollable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscrollbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkscrolledwindow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksearchbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksearchentry.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkseparator.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkseparatormenuitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkseparatortoolitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksettings.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutlabel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutsgroup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutssection.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshortcutsshortcut.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkshow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstacksidebar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstack.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtksizerequest.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkspinbutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkspinner.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstackswitcher.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkstatusbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkswitch.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextbuffer.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktexttagtable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextmark.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextbufferrichtext.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktextview.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolitemgroup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolpalette.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktoolshell.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktestutils.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreednd.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreemodelsort.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreeselection.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktreestore.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtktypebuiltins.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkversion.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkviewport.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkvolumebutton.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwidgetpath.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtkwindowgroup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkarrow.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkactivatable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkaction.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkactiongroup.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstock.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkalignment.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkcolorsel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkcolorseldialog.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkfontsel.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkgradient.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtksymboliccolor.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhandlebox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhbbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhpaned.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhsv.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhscale.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhscrollbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkhseparator.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkimagemenuitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtknumerableicon.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkradioaction.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtktoggleaction.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkrc.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkrecentaction.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstatusicon.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkstyle.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtktable.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtktearoffmenuitem.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkthemingengine.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkuimanager.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvbbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvbox.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvpaned.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvscale.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvscrollbar.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/deprecated/gtkvseparator.h:
+/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0/gtk/gtk-autocleanups.h:
+src/indexer.h:
+config.h:

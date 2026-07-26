@@ -15,6 +15,7 @@
 
 
 
+
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
     false; \
@@ -88,31 +89,38 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+build_triplet = aarch64-apple-darwin25.5.0
+host_triplet = aarch64-apple-darwin25.5.0
 bin_PROGRAMS = odysia$(EXEEXT)
 check_PROGRAMS = test_indexer$(EXEEXT)
+odysia_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1) $(am__append_1)
+#am__append_1 = odysia-icon.o
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
-	$(am__configure_deps) $(am__DIST_COMMON)
+	$(am__configure_deps) $(dist_desktop_DATA) $(dist_icon_DATA) \
+	$(am__DIST_COMMON)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__installdirs = "$(DESTDIR)$(bindir)"
+am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" \
+	"$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(icondir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_odysia_OBJECTS = main.$(OBJEXT) src/indexer.$(OBJEXT) \
-	src/ui.$(OBJEXT)
-odysia_OBJECTS = $(am_odysia_OBJECTS)
+am_odysia_OBJECTS = odysia-main.$(OBJEXT) src/odysia-indexer.$(OBJEXT) \
+	src/odysia-ui.$(OBJEXT)
+nodist_odysia_OBJECTS = odysia-odysia-resources.$(OBJEXT)
+odysia_OBJECTS = $(am_odysia_OBJECTS) $(nodist_odysia_OBJECTS)
 am__DEPENDENCIES_1 =
-odysia_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am_test_indexer_OBJECTS = tests/test_indexer.$(OBJEXT) \
-	src/indexer.$(OBJEXT)
+am_test_indexer_OBJECTS = tests/test_indexer-test_indexer.$(OBJEXT) \
+	src/test_indexer-indexer.$(OBJEXT)
 test_indexer_OBJECTS = $(am_test_indexer_OBJECTS)
 test_indexer_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
@@ -131,9 +139,16 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/main.Po src/$(DEPDIR)/indexer.Po \
-	src/$(DEPDIR)/ui.Po tests/$(DEPDIR)/test_indexer.Po
+am__depfiles_remade = ./$(DEPDIR)/odysia-main.Po \
+	./$(DEPDIR)/odysia-odysia-resources.Po \
+	src/$(DEPDIR)/odysia-indexer.Po src/$(DEPDIR)/odysia-ui.Po \
+	src/$(DEPDIR)/test_indexer-indexer.Po \
+	tests/$(DEPDIR)/test_indexer-test_indexer.Po
 am__mv = mv -f
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 AM_V_CC = $(am__v_CC_$(V))
@@ -146,13 +161,44 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(odysia_SOURCES) $(test_indexer_SOURCES)
+SOURCES = $(odysia_SOURCES) $(nodist_odysia_SOURCES) \
+	$(test_indexer_SOURCES)
 DIST_SOURCES = $(odysia_SOURCES) $(test_indexer_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
+am__vpath_adj = case $$p in \
+    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
+    *) f=$$p;; \
+  esac;
+am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
+am__install_max = 40
+am__nobase_strip_setup = \
+  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
+am__nobase_strip = \
+  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
+am__nobase_list = $(am__nobase_strip_setup); \
+  for p in $$list; do echo "$$p $$p"; done | \
+  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
+  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
+    if (++n[$$2] == $(am__install_max)) \
+      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
+    END { for (dir in files) print dir, files[dir] }'
+am__base_list = \
+  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
+  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
+am__uninstall_files_from_dir = { \
+  { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
+  || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
+       $(am__cd) "$$dir" && echo $$files | $(am__xargs_n) 40 $(am__rm_f); }; \
+  }
+man1dir = $(mandir)/man1
+NROFF = nroff
+MANS = $(dist_man_MANS)
+DATA = $(dist_desktop_DATA) $(dist_icon_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP) \
 	config.h.in
 # Read a list of newline-separated strings from the standard input,
@@ -194,32 +240,6 @@ am__tty_colors = { \
     std='[m'; \
   fi; \
 }
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
-am__install_max = 40
-am__nobase_strip_setup = \
-  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
-am__nobase_strip = \
-  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
-am__nobase_list = $(am__nobase_strip_setup); \
-  for p in $$list; do echo "$$p $$p"; done | \
-  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
-  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
-    if (++n[$$2] == $(am__install_max)) \
-      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
-    END { for (dir in files) print dir, files[dir] }'
-am__base_list = \
-  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
-  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__uninstall_files_from_dir = { \
-  { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
-  || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
-       $(am__cd) "$$dir" && echo $$files | $(am__xargs_n) 40 $(am__rm_f); }; \
-  }
 am__recheck_rx = ^[ 	]*:recheck:[ 	]*
 am__global_test_result_rx = ^[ 	]*:global-test-result:[ 	]*
 am__copy_in_global_log_rx = ^[ 	]*:copy-in-global-log:[ 	]*
@@ -381,8 +401,9 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	README.md compile depcomp install-sh missing test-driver
+am__DIST_COMMON = $(dist_man_MANS) $(srcdir)/Makefile.in \
+	$(srcdir)/config.h.in README.md compile config.guess \
+	config.sub depcomp install-sh missing test-driver
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -425,6 +446,7 @@ ECHO_N =
 ECHO_T = 
 ETAGS = etags
 EXEEXT = 
+GLIB_COMPILE_RESOURCES = /opt/homebrew/bin/glib-compile-resources
 GTK_CFLAGS = -I/opt/homebrew/Cellar/gtk+3/3.24.52/include/gtk-3.0 -I/opt/homebrew/Cellar/pango/1.57.0_2/include/pango-1.0 -I/opt/homebrew/Cellar/libthai/0.1.30/include -I/opt/homebrew/Cellar/libdatrie/0.2.14/include -I/opt/homebrew/Cellar/harfbuzz/14.2.0/include/harfbuzz -I/opt/homebrew/Cellar/graphite2/1.3.14/include -I/opt/homebrew/Cellar/cairo/1.18.4/include -I/opt/homebrew/Cellar/cairo/1.18.4/include/cairo -I/opt/homebrew/Cellar/fontconfig/2.17.1/include -I/opt/homebrew/opt/freetype/include/freetype2 -I/opt/homebrew/Cellar/libxext/1.3.7/include -I/opt/homebrew/Cellar/xorgproto/2025.1/include -I/opt/homebrew/Cellar/libxrender/0.9.12/include -I/opt/homebrew/Cellar/libx11/1.8.13/include -I/opt/homebrew/Cellar/libxcb/1.17.0/include -I/opt/homebrew/Cellar/libxau/1.0.12/include -I/opt/homebrew/Cellar/libxdmcp/1.1.5/include -I/opt/homebrew/Cellar/pixman/0.46.4/include/pixman-1 -I/opt/homebrew/include/gdk-pixbuf-2.0 -I/opt/homebrew/opt/libpng/include/libpng16 -I/opt/homebrew/opt/libtiff/include -I/opt/homebrew/opt/zstd/include -I/opt/homebrew/Cellar/xz/5.8.3/include -I/opt/homebrew/opt/jpeg-turbo/include -I/opt/homebrew/Cellar/at-spi2-core/2.60.3/include/atk-1.0 -I/opt/homebrew/Cellar/libepoxy/1.5.10/include -I/opt/homebrew/Cellar/fribidi/1.0.16/include/fribidi -I/opt/homebrew/Cellar/glib/2.88.1/include/gio-unix-2.0 -I/opt/homebrew/Cellar/glib/2.88.1/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX26.sdk/usr/include/ffi -I/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0 -I/opt/homebrew/Cellar/glib/2.88.1/lib/glib-2.0/include -I/opt/homebrew/opt/gettext/include -I/opt/homebrew/Cellar/pcre2/10.47_1/include
 GTK_LIBS = -L/opt/homebrew/Cellar/gtk+3/3.24.52/lib -lgtk-3 -lgdk-3 -Wl,-framework,Cocoa -Wl,-framework,Carbon -Wl,-framework,CoreGraphics -L/opt/homebrew/Cellar/pango/1.57.0_2/lib -lpangocairo-1.0 -lpango-1.0 -L/opt/homebrew/Cellar/harfbuzz/14.2.0/lib -lharfbuzz -L/opt/homebrew/Cellar/cairo/1.18.4/lib -lcairo-gobject -lcairo -L/opt/homebrew/lib -lgdk_pixbuf-2.0 -L/opt/homebrew/Cellar/at-spi2-core/2.60.3/lib -latk-1.0 -L/opt/homebrew/Cellar/glib/2.88.1/lib -lgio-2.0 -lgobject-2.0 -lglib-2.0 -L/opt/homebrew/opt/gettext/lib -lintl
 INSTALL = /usr/bin/install -c
@@ -439,14 +461,14 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} '/Users/jon/Development/odysia/missing' makeinfo
 MKDIR_P = mkdir -p
 OBJEXT = o
-ODYSIA_WARN_CFLAGS = -std=c99 -Wall -Wextra -pedantic -Isrc
+ODYSIA_WARN_CFLAGS = -std=c99 -Wall -Wextra -pedantic
 PACKAGE = odysia
 PACKAGE_BUGREPORT = support@example.invalid
 PACKAGE_NAME = odysia
-PACKAGE_STRING = odysia 0.3.0-beta3
+PACKAGE_STRING = odysia 0.5.0-beta5
 PACKAGE_TARNAME = odysia
 PACKAGE_URL = 
-PACKAGE_VERSION = 0.3.0-beta3
+PACKAGE_VERSION = 0.5.0-beta5
 PATH_SEPARATOR = :
 PKG_CONFIG = /opt/homebrew/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
@@ -456,7 +478,8 @@ SHELL = /bin/sh
 SQLITE3_CFLAGS = 
 SQLITE3_LIBS = -lsqlite3
 STRIP = 
-VERSION = 0.3.0-beta3
+VERSION = 0.5.0-beta5
+WINDRES = 
 abs_builddir = /Users/jon/Development/odysia
 abs_srcdir = /Users/jon/Development/odysia
 abs_top_builddir = /Users/jon/Development/odysia
@@ -470,14 +493,22 @@ am__tar = tar --format=ustar -chf - "$$tardir"
 am__untar = tar -xf -
 am__xargs_n = xargs -n
 bindir = ${exec_prefix}/bin
+build = aarch64-apple-darwin25.5.0
 build_alias = 
+build_cpu = aarch64
+build_os = darwin25.5.0
+build_vendor = apple
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
 docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
 dvidir = ${docdir}
 exec_prefix = ${prefix}
+host = aarch64-apple-darwin25.5.0
 host_alias = 
+host_cpu = aarch64
+host_os = darwin25.5.0
+host_vendor = apple
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -503,7 +534,11 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 TESTS = $(check_PROGRAMS)
-AM_CFLAGS = -std=c99 -Wall -Wextra -pedantic -Isrc $(GTK_CFLAGS) $(SQLITE3_CFLAGS)
+dist_man_MANS = odysia.1
+AM_CFLAGS = -std=c99 -Wall -Wextra -pedantic $(GTK_CFLAGS) $(SQLITE3_CFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir)/src
+BUILT_SOURCES = odysia-resources.c odysia-resources.h
+CLEANFILES = $(BUILT_SOURCES) odysia-icon.o
 odysia_SOURCES = \
 	main.c \
 	src/indexer.c \
@@ -511,15 +546,30 @@ odysia_SOURCES = \
 	src/ui.c \
 	src/ui.h
 
-odysia_LDADD = $(GTK_LIBS) $(SQLITE3_LIBS)
+nodist_odysia_SOURCES = odysia-resources.c odysia-resources.h
+odysia_CPPFLAGS = $(AM_CPPFLAGS) -Wno-overlength-strings
+odysia_LDADD = $(GTK_LIBS) $(SQLITE3_LIBS) $(am__append_1)
+#odysia_DEPENDENCIES = odysia-icon.o
+desktopdir = $(datadir)/applications
+dist_desktop_DATA = data/org.odysia.Odysia.desktop
+icondir = $(datadir)/icons/hicolor/512x512/apps
+dist_icon_DATA = assets/odysia-icon.png
 test_indexer_SOURCES = \
 	tests/test_indexer.c \
 	src/indexer.c \
 	src/indexer.h
 
+test_indexer_CPPFLAGS = $(AM_CPPFLAGS) -DTEST_FIXTURE_DIR='"$(abs_top_srcdir)/tests/fixtures/linux_sample"'
 test_indexer_LDADD = $(GTK_LIBS) $(SQLITE3_LIBS)
 EXTRA_DIST = \
 	README.md \
+	assets/odysia-icon.svg \
+	assets/odysia-icon.png \
+	assets/odysia.gresource.xml \
+	assets/odysia.ico \
+	assets/odysia.icns \
+	assets/odysia.rc \
+	data/Info.plist \
 	tests/fixtures/linux_sample/Kconfig.sample \
 	tests/fixtures/linux_sample/Makefile.sample \
 	tests/fixtures/linux_sample/arch/sample.S \
@@ -536,7 +586,7 @@ EXTRA_DIST = \
 	tests/fixtures/linux_sample/scripts/sample.py \
 	tests/fixtures/linux_sample/scripts/sample.y
 
-all: config.h
+all: $(BUILT_SOURCES) config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
@@ -640,9 +690,10 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: >>src/$(DEPDIR)/$(am__dirstamp)
-src/indexer.$(OBJEXT): src/$(am__dirstamp) \
+src/odysia-indexer.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/ui.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/odysia-ui.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
 odysia$(EXEEXT): $(odysia_OBJECTS) $(odysia_DEPENDENCIES) $(EXTRA_odysia_DEPENDENCIES) 
 	@rm -f odysia$(EXEEXT)
@@ -653,8 +704,10 @@ tests/$(am__dirstamp):
 tests/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) tests/$(DEPDIR)
 	@: >>tests/$(DEPDIR)/$(am__dirstamp)
-tests/test_indexer.$(OBJEXT): tests/$(am__dirstamp) \
+tests/test_indexer-test_indexer.$(OBJEXT): tests/$(am__dirstamp) \
 	tests/$(DEPDIR)/$(am__dirstamp)
+src/test_indexer-indexer.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
 test_indexer$(EXEEXT): $(test_indexer_OBJECTS) $(test_indexer_DEPENDENCIES) $(EXTRA_test_indexer_DEPENDENCIES) 
 	@rm -f test_indexer$(EXEEXT)
@@ -668,10 +721,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/main.Po # am--include-marker
-include src/$(DEPDIR)/indexer.Po # am--include-marker
-include src/$(DEPDIR)/ui.Po # am--include-marker
-include tests/$(DEPDIR)/test_indexer.Po # am--include-marker
+include ./$(DEPDIR)/odysia-main.Po # am--include-marker
+include ./$(DEPDIR)/odysia-odysia-resources.Po # am--include-marker
+include src/$(DEPDIR)/odysia-indexer.Po # am--include-marker
+include src/$(DEPDIR)/odysia-ui.Po # am--include-marker
+include src/$(DEPDIR)/test_indexer-indexer.Po # am--include-marker
+include tests/$(DEPDIR)/test_indexer-test_indexer.Po # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -694,6 +749,175 @@ am--depfiles: $(am__depfiles_remade)
 #	$(AM_V_CC)source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+odysia-main.o: main.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT odysia-main.o -MD -MP -MF $(DEPDIR)/odysia-main.Tpo -c -o odysia-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/odysia-main.Tpo $(DEPDIR)/odysia-main.Po
+#	$(AM_V_CC)source='main.c' object='odysia-main.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o odysia-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+
+odysia-main.obj: main.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT odysia-main.obj -MD -MP -MF $(DEPDIR)/odysia-main.Tpo -c -o odysia-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/odysia-main.Tpo $(DEPDIR)/odysia-main.Po
+#	$(AM_V_CC)source='main.c' object='odysia-main.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o odysia-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+
+src/odysia-indexer.o: src/indexer.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/odysia-indexer.o -MD -MP -MF src/$(DEPDIR)/odysia-indexer.Tpo -c -o src/odysia-indexer.o `test -f 'src/indexer.c' || echo '$(srcdir)/'`src/indexer.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/odysia-indexer.Tpo src/$(DEPDIR)/odysia-indexer.Po
+#	$(AM_V_CC)source='src/indexer.c' object='src/odysia-indexer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/odysia-indexer.o `test -f 'src/indexer.c' || echo '$(srcdir)/'`src/indexer.c
+
+src/odysia-indexer.obj: src/indexer.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/odysia-indexer.obj -MD -MP -MF src/$(DEPDIR)/odysia-indexer.Tpo -c -o src/odysia-indexer.obj `if test -f 'src/indexer.c'; then $(CYGPATH_W) 'src/indexer.c'; else $(CYGPATH_W) '$(srcdir)/src/indexer.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/odysia-indexer.Tpo src/$(DEPDIR)/odysia-indexer.Po
+#	$(AM_V_CC)source='src/indexer.c' object='src/odysia-indexer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/odysia-indexer.obj `if test -f 'src/indexer.c'; then $(CYGPATH_W) 'src/indexer.c'; else $(CYGPATH_W) '$(srcdir)/src/indexer.c'; fi`
+
+src/odysia-ui.o: src/ui.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/odysia-ui.o -MD -MP -MF src/$(DEPDIR)/odysia-ui.Tpo -c -o src/odysia-ui.o `test -f 'src/ui.c' || echo '$(srcdir)/'`src/ui.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/odysia-ui.Tpo src/$(DEPDIR)/odysia-ui.Po
+#	$(AM_V_CC)source='src/ui.c' object='src/odysia-ui.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/odysia-ui.o `test -f 'src/ui.c' || echo '$(srcdir)/'`src/ui.c
+
+src/odysia-ui.obj: src/ui.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/odysia-ui.obj -MD -MP -MF src/$(DEPDIR)/odysia-ui.Tpo -c -o src/odysia-ui.obj `if test -f 'src/ui.c'; then $(CYGPATH_W) 'src/ui.c'; else $(CYGPATH_W) '$(srcdir)/src/ui.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/odysia-ui.Tpo src/$(DEPDIR)/odysia-ui.Po
+#	$(AM_V_CC)source='src/ui.c' object='src/odysia-ui.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/odysia-ui.obj `if test -f 'src/ui.c'; then $(CYGPATH_W) 'src/ui.c'; else $(CYGPATH_W) '$(srcdir)/src/ui.c'; fi`
+
+odysia-odysia-resources.o: odysia-resources.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT odysia-odysia-resources.o -MD -MP -MF $(DEPDIR)/odysia-odysia-resources.Tpo -c -o odysia-odysia-resources.o `test -f 'odysia-resources.c' || echo '$(srcdir)/'`odysia-resources.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/odysia-odysia-resources.Tpo $(DEPDIR)/odysia-odysia-resources.Po
+#	$(AM_V_CC)source='odysia-resources.c' object='odysia-odysia-resources.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o odysia-odysia-resources.o `test -f 'odysia-resources.c' || echo '$(srcdir)/'`odysia-resources.c
+
+odysia-odysia-resources.obj: odysia-resources.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT odysia-odysia-resources.obj -MD -MP -MF $(DEPDIR)/odysia-odysia-resources.Tpo -c -o odysia-odysia-resources.obj `if test -f 'odysia-resources.c'; then $(CYGPATH_W) 'odysia-resources.c'; else $(CYGPATH_W) '$(srcdir)/odysia-resources.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/odysia-odysia-resources.Tpo $(DEPDIR)/odysia-odysia-resources.Po
+#	$(AM_V_CC)source='odysia-resources.c' object='odysia-odysia-resources.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(odysia_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o odysia-odysia-resources.obj `if test -f 'odysia-resources.c'; then $(CYGPATH_W) 'odysia-resources.c'; else $(CYGPATH_W) '$(srcdir)/odysia-resources.c'; fi`
+
+tests/test_indexer-test_indexer.o: tests/test_indexer.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/test_indexer-test_indexer.o -MD -MP -MF tests/$(DEPDIR)/test_indexer-test_indexer.Tpo -c -o tests/test_indexer-test_indexer.o `test -f 'tests/test_indexer.c' || echo '$(srcdir)/'`tests/test_indexer.c
+	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/test_indexer-test_indexer.Tpo tests/$(DEPDIR)/test_indexer-test_indexer.Po
+#	$(AM_V_CC)source='tests/test_indexer.c' object='tests/test_indexer-test_indexer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/test_indexer-test_indexer.o `test -f 'tests/test_indexer.c' || echo '$(srcdir)/'`tests/test_indexer.c
+
+tests/test_indexer-test_indexer.obj: tests/test_indexer.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tests/test_indexer-test_indexer.obj -MD -MP -MF tests/$(DEPDIR)/test_indexer-test_indexer.Tpo -c -o tests/test_indexer-test_indexer.obj `if test -f 'tests/test_indexer.c'; then $(CYGPATH_W) 'tests/test_indexer.c'; else $(CYGPATH_W) '$(srcdir)/tests/test_indexer.c'; fi`
+	$(AM_V_at)$(am__mv) tests/$(DEPDIR)/test_indexer-test_indexer.Tpo tests/$(DEPDIR)/test_indexer-test_indexer.Po
+#	$(AM_V_CC)source='tests/test_indexer.c' object='tests/test_indexer-test_indexer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tests/test_indexer-test_indexer.obj `if test -f 'tests/test_indexer.c'; then $(CYGPATH_W) 'tests/test_indexer.c'; else $(CYGPATH_W) '$(srcdir)/tests/test_indexer.c'; fi`
+
+src/test_indexer-indexer.o: src/indexer.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/test_indexer-indexer.o -MD -MP -MF src/$(DEPDIR)/test_indexer-indexer.Tpo -c -o src/test_indexer-indexer.o `test -f 'src/indexer.c' || echo '$(srcdir)/'`src/indexer.c
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/test_indexer-indexer.Tpo src/$(DEPDIR)/test_indexer-indexer.Po
+#	$(AM_V_CC)source='src/indexer.c' object='src/test_indexer-indexer.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/test_indexer-indexer.o `test -f 'src/indexer.c' || echo '$(srcdir)/'`src/indexer.c
+
+src/test_indexer-indexer.obj: src/indexer.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/test_indexer-indexer.obj -MD -MP -MF src/$(DEPDIR)/test_indexer-indexer.Tpo -c -o src/test_indexer-indexer.obj `if test -f 'src/indexer.c'; then $(CYGPATH_W) 'src/indexer.c'; else $(CYGPATH_W) '$(srcdir)/src/indexer.c'; fi`
+	$(AM_V_at)$(am__mv) src/$(DEPDIR)/test_indexer-indexer.Tpo src/$(DEPDIR)/test_indexer-indexer.Po
+#	$(AM_V_CC)source='src/indexer.c' object='src/test_indexer-indexer.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(test_indexer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/test_indexer-indexer.obj `if test -f 'src/indexer.c'; then $(CYGPATH_W) 'src/indexer.c'; else $(CYGPATH_W) '$(srcdir)/src/indexer.c'; fi`
+install-man1: $(dist_man_MANS)
+	@$(NORMAL_INSTALL)
+	@list1=''; \
+	list2='$(dist_man_MANS)'; \
+	test -n "$(man1dir)" \
+	  && test -n "`echo $$list1$$list2`" \
+	  || exit 0; \
+	echo " $(MKDIR_P) '$(DESTDIR)$(man1dir)'"; \
+	$(MKDIR_P) "$(DESTDIR)$(man1dir)" || exit 1; \
+	{ for i in $$list1; do echo "$$i"; done;  \
+	if test -n "$$list2"; then \
+	  for i in $$list2; do echo "$$i"; done \
+	    | sed -n '/\.1[a-z]*$$/p'; \
+	fi; \
+	} | while read p; do \
+	  if test -f $$p; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; echo "$$p"; \
+	done | \
+	sed -e 'n;s,.*/,,;p;h;s,.*\.,,;s,^[^1][0-9a-z]*$$,1,;x' \
+	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,' | \
+	sed 'N;N;s,\n, ,g' | { \
+	list=; while read file base inst; do \
+	  if test "$$base" = "$$inst"; then list="$$list $$file"; else \
+	    echo " $(INSTALL_DATA) '$$file' '$(DESTDIR)$(man1dir)/$$inst'"; \
+	    $(INSTALL_DATA) "$$file" "$(DESTDIR)$(man1dir)/$$inst" || exit $$?; \
+	  fi; \
+	done; \
+	for i in $$list; do echo "$$i"; done | $(am__base_list) | \
+	while read files; do \
+	  test -z "$$files" || { \
+	    echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(man1dir)'"; \
+	    $(INSTALL_DATA) $$files "$(DESTDIR)$(man1dir)" || exit $$?; }; \
+	done; }
+
+uninstall-man1:
+	@$(NORMAL_UNINSTALL)
+	@list=''; test -n "$(man1dir)" || exit 0; \
+	files=`{ for i in $$list; do echo "$$i"; done; \
+	l2='$(dist_man_MANS)'; for i in $$l2; do echo "$$i"; done | \
+	  sed -n '/\.1[a-z]*$$/p'; \
+	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^1][0-9a-z]*$$,1,;x' \
+	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
+	dir='$(DESTDIR)$(man1dir)'; $(am__uninstall_files_from_dir)
+install-dist_desktopDATA: $(dist_desktop_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(dist_desktop_DATA)'; test -n "$(desktopdir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(desktopdir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(desktopdir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(desktopdir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(desktopdir)" || exit $$?; \
+	done
+
+uninstall-dist_desktopDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_desktop_DATA)'; test -n "$(desktopdir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(desktopdir)'; $(am__uninstall_files_from_dir)
+install-dist_iconDATA: $(dist_icon_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(dist_icon_DATA)'; test -n "$(icondir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(icondir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(icondir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(icondir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(icondir)" || exit $$?; \
+	done
+
+uninstall-dist_iconDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(dist_icon_DATA)'; test -n "$(icondir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(icondir)'; $(am__uninstall_files_from_dir)
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -1123,14 +1347,17 @@ distcleancheck: distclean
 check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
-check: check-am
-all-am: Makefile $(PROGRAMS) config.h
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
+all-am: Makefile $(PROGRAMS) $(MANS) $(DATA) config.h
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(desktopdir)" "$(DESTDIR)$(icondir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
-install-exec: install-exec-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
+install-exec: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
 
@@ -1154,6 +1381,7 @@ mostlyclean-generic:
 	-$(am__rm_f) $(TEST_SUITE_LOG)
 
 clean-generic:
+	-$(am__rm_f) $(CLEANFILES)
 
 distclean-generic:
 	-$(am__rm_f) $(CONFIG_CLEAN_FILES)
@@ -1166,6 +1394,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-$(am__rm_f) $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
@@ -1173,10 +1402,12 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -f ./$(DEPDIR)/main.Po
-	-rm -f src/$(DEPDIR)/indexer.Po
-	-rm -f src/$(DEPDIR)/ui.Po
-	-rm -f tests/$(DEPDIR)/test_indexer.Po
+	-rm -f ./$(DEPDIR)/odysia-main.Po
+	-rm -f ./$(DEPDIR)/odysia-odysia-resources.Po
+	-rm -f src/$(DEPDIR)/odysia-indexer.Po
+	-rm -f src/$(DEPDIR)/odysia-ui.Po
+	-rm -f src/$(DEPDIR)/test_indexer-indexer.Po
+	-rm -f tests/$(DEPDIR)/test_indexer-test_indexer.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -1193,7 +1424,8 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-dist_desktopDATA install-dist_iconDATA \
+	install-man
 
 install-dvi: install-dvi-am
 
@@ -1209,7 +1441,7 @@ install-info: install-info-am
 
 install-info-am:
 
-install-man:
+install-man: install-man1
 
 install-pdf: install-pdf-am
 
@@ -1224,10 +1456,12 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -f ./$(DEPDIR)/main.Po
-	-rm -f src/$(DEPDIR)/indexer.Po
-	-rm -f src/$(DEPDIR)/ui.Po
-	-rm -f tests/$(DEPDIR)/test_indexer.Po
+	-rm -f ./$(DEPDIR)/odysia-main.Po
+	-rm -f ./$(DEPDIR)/odysia-odysia-resources.Po
+	-rm -f src/$(DEPDIR)/odysia-indexer.Po
+	-rm -f src/$(DEPDIR)/odysia-ui.Po
+	-rm -f src/$(DEPDIR)/test_indexer-indexer.Po
+	-rm -f tests/$(DEPDIR)/test_indexer-test_indexer.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1243,9 +1477,13 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS
+uninstall-am: uninstall-binPROGRAMS uninstall-dist_desktopDATA \
+	uninstall-dist_iconDATA uninstall-man
 
-.MAKE: all check-am install-am install-strip
+uninstall-man: uninstall-man1
+
+.MAKE: all check check-am install install-am install-exec \
+	install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--depfiles am--refresh check \
 	check-TESTS check-am clean clean-binPROGRAMS \
@@ -1256,17 +1494,36 @@ uninstall-am: uninstall-binPROGRAMS
 	distclean-generic distclean-hdr distclean-tags distcleancheck \
 	distdir distuninstallcheck dvi dvi-am html html-am info \
 	info-am install install-am install-binPROGRAMS install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am recheck tags tags-am \
-	uninstall uninstall-am uninstall-binPROGRAMS
+	install-data-am install-dist_desktopDATA install-dist_iconDATA \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-man1 install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic pdf pdf-am \
+	ps ps-am recheck tags tags-am uninstall uninstall-am \
+	uninstall-binPROGRAMS uninstall-dist_desktopDATA \
+	uninstall-dist_iconDATA uninstall-man uninstall-man1
 
 .PRECIOUS: Makefile
 
+
+odysia-resources.c: $(srcdir)/assets/odysia.gresource.xml $(srcdir)/assets/odysia-icon.png
+	$(GLIB_COMPILE_RESOURCES) $< --sourcedir=$(srcdir)/assets --generate-source --target=$@
+
+odysia-resources.h: $(srcdir)/assets/odysia.gresource.xml $(srcdir)/assets/odysia-icon.png
+	$(GLIB_COMPILE_RESOURCES) $< --sourcedir=$(srcdir)/assets --generate-header --target=$@
+
+#odysia-icon.o: $(srcdir)/assets/odysia.rc $(srcdir)/assets/odysia.ico
+#	cd $(srcdir)/assets && $(WINDRES) -i odysia.rc -o $(abs_builddir)/$@
+
+macos-bundle: odysia
+	$(MKDIR_P) dist/Odysia.app/Contents/MacOS dist/Odysia.app/Contents/Resources
+	$(INSTALL_PROGRAM) odysia dist/Odysia.app/Contents/MacOS/odysia
+	$(INSTALL_DATA) $(srcdir)/data/Info.plist dist/Odysia.app/Contents/Info.plist
+	$(INSTALL_DATA) $(srcdir)/assets/odysia.icns dist/Odysia.app/Contents/Resources/odysia.icns
+
+.PHONY: macos-bundle
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -1191,80 +1191,95 @@ m4trace:configure.ac:5: -1- _AM_PROG_RM_F
 m4trace:configure.ac:5: -1- m4_pattern_allow([^am__rm_f_notfound$])
 m4trace:configure.ac:5: -1- _AM_PROG_XARGS_N
 m4trace:configure.ac:5: -1- m4_pattern_allow([^am__xargs_n$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CFLAGS$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^LDFLAGS$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^LIBS$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CPPFLAGS$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^ac_ct_CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CC$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^EXEEXT$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^OBJEXT$])
-m4trace:configure.ac:6: -1- _AM_PROG_CC_C_O
-m4trace:configure.ac:6: -1- AM_RUN_LOG([$CC -c conftest.$ac_ext -o conftest2.$ac_objext])
-m4trace:configure.ac:6: -1- _AM_DEPENDENCIES([CC])
-m4trace:configure.ac:6: -1- AM_SET_DEPDIR
-m4trace:configure.ac:6: -1- m4_pattern_allow([^DEPDIR$])
-m4trace:configure.ac:6: -1- AM_OUTPUT_DEPENDENCY_COMMANDS
-m4trace:configure.ac:6: -1- AM_MAKE_INCLUDE
-m4trace:configure.ac:6: -1- AM_RUN_LOG([${MAKE-make} -f confmf.$s && cat confinc.out])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^am__include$])
-m4trace:configure.ac:6: -1- AM_DEP_TRACK
-m4trace:configure.ac:6: -1- AM_CONDITIONAL([AMDEP], [test "x$enable_dependency_tracking" != xno])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^AMDEP_TRUE$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^AMDEP_FALSE$])
-m4trace:configure.ac:6: -1- _AM_SUBST_NOTMAKE([AMDEP_TRUE])
-m4trace:configure.ac:6: -1- _AM_SUBST_NOTMAKE([AMDEP_FALSE])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^AMDEPBACKSLASH$])
-m4trace:configure.ac:6: -1- _AM_SUBST_NOTMAKE([AMDEPBACKSLASH])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^am__nodep$])
-m4trace:configure.ac:6: -1- _AM_SUBST_NOTMAKE([am__nodep])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^CCDEPMODE$])
-m4trace:configure.ac:6: -1- AM_CONDITIONAL([am__fastdepCC], [
+m4trace:configure.ac:6: -1- m4_pattern_allow([^build$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^build_cpu$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^build_vendor$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^build_os$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^host$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^host_cpu$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^host_vendor$])
+m4trace:configure.ac:6: -1- m4_pattern_allow([^host_os$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CFLAGS$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^LDFLAGS$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^LIBS$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CPPFLAGS$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^ac_ct_CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CC$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^EXEEXT$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^OBJEXT$])
+m4trace:configure.ac:7: -1- _AM_PROG_CC_C_O
+m4trace:configure.ac:7: -1- AM_RUN_LOG([$CC -c conftest.$ac_ext -o conftest2.$ac_objext])
+m4trace:configure.ac:7: -1- _AM_DEPENDENCIES([CC])
+m4trace:configure.ac:7: -1- AM_SET_DEPDIR
+m4trace:configure.ac:7: -1- m4_pattern_allow([^DEPDIR$])
+m4trace:configure.ac:7: -1- AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:7: -1- AM_MAKE_INCLUDE
+m4trace:configure.ac:7: -1- AM_RUN_LOG([${MAKE-make} -f confmf.$s && cat confinc.out])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^am__include$])
+m4trace:configure.ac:7: -1- AM_DEP_TRACK
+m4trace:configure.ac:7: -1- AM_CONDITIONAL([AMDEP], [test "x$enable_dependency_tracking" != xno])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^AMDEP_TRUE$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^AMDEP_FALSE$])
+m4trace:configure.ac:7: -1- _AM_SUBST_NOTMAKE([AMDEP_TRUE])
+m4trace:configure.ac:7: -1- _AM_SUBST_NOTMAKE([AMDEP_FALSE])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^AMDEPBACKSLASH$])
+m4trace:configure.ac:7: -1- _AM_SUBST_NOTMAKE([AMDEPBACKSLASH])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^am__nodep$])
+m4trace:configure.ac:7: -1- _AM_SUBST_NOTMAKE([am__nodep])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^CCDEPMODE$])
+m4trace:configure.ac:7: -1- AM_CONDITIONAL([am__fastdepCC], [
   test "x$enable_dependency_tracking" != xno \
   && test "$am_cv_CC_dependencies_compiler_type" = gcc3])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^am__fastdepCC_TRUE$])
-m4trace:configure.ac:6: -1- m4_pattern_allow([^am__fastdepCC_FALSE$])
-m4trace:configure.ac:6: -1- _AM_SUBST_NOTMAKE([am__fastdepCC_TRUE])
-m4trace:configure.ac:6: -1- _AM_SUBST_NOTMAKE([am__fastdepCC_FALSE])
-m4trace:configure.ac:7: -1- PKG_PROG_PKG_CONFIG
-m4trace:configure.ac:7: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
-m4trace:configure.ac:7: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
-m4trace:configure.ac:7: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
-m4trace:configure.ac:7: -1- m4_pattern_allow([^PKG_CONFIG$])
-m4trace:configure.ac:7: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
-m4trace:configure.ac:7: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
-m4trace:configure.ac:7: -1- m4_pattern_allow([^PKG_CONFIG$])
-m4trace:configure.ac:9: -1- PKG_CHECK_MODULES([GTK], [gtk+-3.0 gio-2.0])
-m4trace:configure.ac:9: -1- m4_pattern_allow([^GTK_CFLAGS$])
-m4trace:configure.ac:9: -1- m4_pattern_allow([^GTK_LIBS$])
-m4trace:configure.ac:9: -1- PKG_CHECK_EXISTS([gtk+-3.0 gio-2.0], [pkg_cv_[]GTK_CFLAGS=`$PKG_CONFIG --[]cflags "gtk+-3.0 gio-2.0" 2>/dev/null`
+m4trace:configure.ac:7: -1- m4_pattern_allow([^am__fastdepCC_TRUE$])
+m4trace:configure.ac:7: -1- m4_pattern_allow([^am__fastdepCC_FALSE$])
+m4trace:configure.ac:7: -1- _AM_SUBST_NOTMAKE([am__fastdepCC_TRUE])
+m4trace:configure.ac:7: -1- _AM_SUBST_NOTMAKE([am__fastdepCC_FALSE])
+m4trace:configure.ac:8: -1- PKG_PROG_PKG_CONFIG
+m4trace:configure.ac:8: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4trace:configure.ac:8: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+m4trace:configure.ac:8: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+m4trace:configure.ac:8: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:8: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
+m4trace:configure.ac:8: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
+m4trace:configure.ac:8: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:10: -1- PKG_CHECK_MODULES([GTK], [gtk+-3.0 gio-2.0])
+m4trace:configure.ac:10: -1- m4_pattern_allow([^GTK_CFLAGS$])
+m4trace:configure.ac:10: -1- m4_pattern_allow([^GTK_LIBS$])
+m4trace:configure.ac:10: -1- PKG_CHECK_EXISTS([gtk+-3.0 gio-2.0], [pkg_cv_[]GTK_CFLAGS=`$PKG_CONFIG --[]cflags "gtk+-3.0 gio-2.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:9: -1- PKG_CHECK_EXISTS([gtk+-3.0 gio-2.0], [pkg_cv_[]GTK_LIBS=`$PKG_CONFIG --[]libs "gtk+-3.0 gio-2.0" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:9: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:10: -1- PKG_CHECK_MODULES([SQLITE3], [sqlite3])
-m4trace:configure.ac:10: -1- m4_pattern_allow([^SQLITE3_CFLAGS$])
-m4trace:configure.ac:10: -1- m4_pattern_allow([^SQLITE3_LIBS$])
-m4trace:configure.ac:10: -1- PKG_CHECK_EXISTS([sqlite3], [pkg_cv_[]SQLITE3_CFLAGS=`$PKG_CONFIG --[]cflags "sqlite3" 2>/dev/null`
-		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:10: -1- PKG_CHECK_EXISTS([sqlite3], [pkg_cv_[]SQLITE3_LIBS=`$PKG_CONFIG --[]libs "sqlite3" 2>/dev/null`
+m4trace:configure.ac:10: -1- PKG_CHECK_EXISTS([gtk+-3.0 gio-2.0], [pkg_cv_[]GTK_LIBS=`$PKG_CONFIG --[]libs "gtk+-3.0 gio-2.0" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
 m4trace:configure.ac:10: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:13: -1- m4_pattern_allow([^ODYSIA_WARN_CFLAGS$])
-m4trace:configure.ac:16: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:16: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:16: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
-m4trace:configure.ac:16: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
-m4trace:configure.ac:16: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
-m4trace:configure.ac:16: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
-m4trace:configure.ac:16: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
-m4trace:configure.ac:16: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
-m4trace:configure.ac:16: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
-m4trace:configure.ac:16: -1- AM_RUN_LOG([cd "$am_dirpart" \
+m4trace:configure.ac:11: -1- PKG_CHECK_MODULES([SQLITE3], [sqlite3])
+m4trace:configure.ac:11: -1- m4_pattern_allow([^SQLITE3_CFLAGS$])
+m4trace:configure.ac:11: -1- m4_pattern_allow([^SQLITE3_LIBS$])
+m4trace:configure.ac:11: -1- PKG_CHECK_EXISTS([sqlite3], [pkg_cv_[]SQLITE3_CFLAGS=`$PKG_CONFIG --[]cflags "sqlite3" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:11: -1- PKG_CHECK_EXISTS([sqlite3], [pkg_cv_[]SQLITE3_LIBS=`$PKG_CONFIG --[]libs "sqlite3" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:11: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:12: -1- m4_pattern_allow([^GLIB_COMPILE_RESOURCES$])
+m4trace:configure.ac:20: -1- AM_CONDITIONAL([ODYSIA_WINDOWS], [test "x$odysia_windows" = "xyes"])
+m4trace:configure.ac:20: -1- m4_pattern_allow([^ODYSIA_WINDOWS_TRUE$])
+m4trace:configure.ac:20: -1- m4_pattern_allow([^ODYSIA_WINDOWS_FALSE$])
+m4trace:configure.ac:20: -1- _AM_SUBST_NOTMAKE([ODYSIA_WINDOWS_TRUE])
+m4trace:configure.ac:20: -1- _AM_SUBST_NOTMAKE([ODYSIA_WINDOWS_FALSE])
+m4trace:configure.ac:21: -1- m4_pattern_allow([^WINDRES$])
+m4trace:configure.ac:24: -1- m4_pattern_allow([^ODYSIA_WARN_CFLAGS$])
+m4trace:configure.ac:27: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:27: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:27: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
+m4trace:configure.ac:27: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
+m4trace:configure.ac:27: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
+m4trace:configure.ac:27: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
+m4trace:configure.ac:27: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
+m4trace:configure.ac:27: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
+m4trace:configure.ac:27: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:27: -1- AM_RUN_LOG([cd "$am_dirpart" \
       && sed -e '/# am--include-marker/d' "$am_filepart" \
         | $MAKE -f - am--depfiles])

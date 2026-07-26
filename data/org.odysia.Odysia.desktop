@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Odysia
+Comment=Explore Linux kernel source code
+Exec=odysia
+Icon=odysia-icon
+Terminal=false
+Categories=Development;IDE;
+StartupNotify=true
+StartupWMClass=org.odysia.Odysia

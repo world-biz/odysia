@@ -1,4 +1,4 @@
-tests/test_indexer.o: tests/test_indexer.c tests/../src/indexer.h \
+src/test_indexer-indexer.o: src/indexer.c src/indexer.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/giotypes.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gioenums.h \
@@ -434,18 +434,15 @@ tests/test_indexer.o: tests/test_indexer.c tests/../src/indexer.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibcompressor.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibdecompressor.h \
   /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio-autocleanups.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gstdio.h \
-  /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gprintf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h
-tests/../src/indexer.h:
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sqlite3.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h
+src/indexer.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/giotypes.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gioenums.h:
@@ -881,14 +878,11 @@ tests/../src/indexer.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibcompressor.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gzlibdecompressor.h:
 /opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/gio/gio-autocleanups.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gstdio.h:
-/opt/homebrew/Cellar/glib/2.88.1/include/glib-2.0/glib/gprintf.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_printf.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h:
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_s_ifmt.h:
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_filesec_t.h:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sqlite3.h:
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h:

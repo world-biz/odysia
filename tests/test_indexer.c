@@ -1,6 +1,11 @@
 #include "../src/indexer.h"
 
 #include <glib.h>
+#include <glib/gstdio.h>
+
+#ifndef TEST_FIXTURE_DIR
+#define TEST_FIXTURE_DIR "tests/fixtures/linux_sample"
+#endif
 
 static OdysiaSymbol *find_child(const OdysiaIndex *index, const OdysiaSymbol *parent, const gchar *name)
 {
@@ -48,7 +53,7 @@ static void test_index_fixture(void)
     gchar *docs;
 
     error = NULL;
-    index = odysia_index_build("tests/fixtures/linux_sample", &error);
+    index = odysia_index_build(TEST_FIXTURE_DIR, &error);
     g_assert_no_error(error);
     g_assert_nonnull(index);
     g_assert_cmpuint(index->symbols->len, >, 6);
@@ -126,7 +131,7 @@ static void test_configurable_source_threads(void)
     OdysiaIndex *multi_threaded;
 
     error = NULL;
-    single_threaded = odysia_index_build_with_progress("tests/fixtures/linux_sample",
+    single_threaded = odysia_index_build_with_progress(TEST_FIXTURE_DIR,
                                                        NULL,
                                                        NULL,
                                                        NULL,
@@ -135,7 +140,7 @@ static void test_configurable_source_threads(void)
     g_assert_no_error(error);
     g_assert_nonnull(single_threaded);
 
-    multi_threaded = odysia_index_build_with_progress("tests/fixtures/linux_sample",
+    multi_threaded = odysia_index_build_with_progress(TEST_FIXTURE_DIR,
                                                       NULL,
                                                       NULL,
                                                       NULL,
@@ -151,10 +156,77 @@ static void test_configurable_source_threads(void)
     odysia_index_free(single_threaded);
 }
 
+static void test_sqlite_round_trip(void)
+{
+    GError *error;
+    OdysiaIndex *original;
+    OdysiaIndex *loaded;
+    OdysiaSymbol *function_symbol;
+    OdysiaSymbol *struct_symbol;
+    OdysiaSymbol *rust_symbol;
+    gchar *database_path;
+    gchar *docs;
+    gint database_fd;
+
+    error = NULL;
+    database_path = NULL;
+    database_fd = g_file_open_tmp("odysia-round-trip-XXXXXX.sqlite", &database_path, &error);
+    g_assert_no_error(error);
+    g_assert_cmpint(database_fd, >=, 0);
+    g_assert_true(g_close(database_fd, &error));
+    g_assert_no_error(error);
+
+    original = odysia_index_build(TEST_FIXTURE_DIR, &error);
+    g_assert_no_error(error);
+    g_assert_nonnull(original);
+    g_assert_true(odysia_index_save_sqlite(original, database_path, &error));
+    g_assert_no_error(error);
+    g_assert_true(odysia_index_save_sqlite(original, database_path, &error));
+    g_assert_no_error(error);
+
+    loaded = odysia_index_load_sqlite(database_path, &error);
+    g_assert_no_error(error);
+    g_assert_nonnull(loaded);
+    g_assert_cmpstr(loaded->root_path, ==, original->root_path);
+    g_assert_cmpuint(loaded->symbols->len, ==, original->symbols->len);
+    g_assert_cmpuint(loaded->doc_files->len, ==, original->doc_files->len);
+
+    function_symbol = odysia_index_resolve_name(loaded, "sample_log", ODYSIA_SYMBOL_FUNCTION);
+    g_assert_nonnull(function_symbol);
+    g_assert_nonnull(function_symbol->signature);
+    g_assert_nonnull(function_symbol->snippet);
+    g_assert_true(has_relation(function_symbol, ODYSIA_RELATION_CALL, "helper"));
+    g_assert_nonnull(find_child(loaded, function_symbol, "tag"));
+    g_assert_nonnull(find_child(loaded, function_symbol, "callback"));
+
+    struct_symbol = odysia_index_resolve_name(loaded, "sample_state", ODYSIA_SYMBOL_STRUCT);
+    g_assert_nonnull(struct_symbol);
+    g_assert_nonnull(find_child(loaded, struct_symbol, "handler"));
+
+    rust_symbol = odysia_index_resolve_name(loaded, "rust_helper", ODYSIA_SYMBOL_FUNCTION);
+    g_assert_nonnull(rust_symbol);
+    g_assert_cmpstr(odysia_symbol_language_name(rust_symbol), ==, "Rust");
+    g_assert_cmpstr(odysia_symbol_language_name(
+                        odysia_index_resolve_name(loaded, "shell_helper", ODYSIA_SYMBOL_FUNCTION)),
+                    ==,
+                    "Shell");
+
+    docs = odysia_index_collect_external_docs(loaded, "sample_log");
+    g_assert_nonnull(docs);
+    g_assert_true(docs[0] != '\0');
+    g_free(docs);
+
+    odysia_index_free(loaded);
+    odysia_index_free(original);
+    g_assert_cmpint(g_remove(database_path), ==, 0);
+    g_free(database_path);
+}
+
 int main(int argc, char **argv)
 {
     g_test_init(&argc, &argv, NULL);
     g_test_add_func("/indexer/fixture", test_index_fixture);
     g_test_add_func("/indexer/configurable-source-threads", test_configurable_source_threads);
+    g_test_add_func("/indexer/sqlite-round-trip", test_sqlite_round_trip);
     return g_test_run();
 }
