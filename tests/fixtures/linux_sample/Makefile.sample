@@ -1,0 +1,4 @@
+sample-target: sample-input
+	@echo sample
+
+sample_variable := enabled

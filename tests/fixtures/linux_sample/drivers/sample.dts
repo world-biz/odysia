@@ -1,0 +1,7 @@
+/dts-v1/;
+
+/ {
+    sample_node: device@0 {
+        compatible = "odysia,sample";
+    };
+};

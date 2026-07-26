@@ -1,0 +1,6 @@
+menu "Odysia samples"
+
+config ODYSIA_SAMPLE
+    bool "Enable sample"
+
+endmenu

@@ -1,0 +1,3 @@
+sample_log
+
+sample_log emits a tagged message and uses sample_state to hold the callback used during processing.
